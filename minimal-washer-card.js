@@ -260,45 +260,45 @@ class MinimalWasherCard extends LitElement {
     }
 
     .theme-dark {
-      --mwc-card-bg: var(--ha-card-background, var(--card-background-color, #15181e));
-      --mwc-card-border: var(--ha-card-border-color, var(--divider-color, rgba(255, 255, 255, 0.08)));
-      --mwc-card-shadow: var(--ha-card-box-shadow, 0 16px 36px rgba(0, 0, 0, 0.45));
-      --mwc-display-bg: #1b1f27;
-      --mwc-display-border: rgba(255, 255, 255, 0.06);
-      --mwc-label-color: #78859b;
-      --mwc-value-color: #f0f4f8;
-      --mwc-track-bg: #252c38;
-      --mwc-progress-fill: var(--primary-color, #00b0ff);
-      --mwc-knob-bg: #1c212a;
-      --mwc-knob-inner-bg: #252b37;
+      --mwc-card-bg: var(--ha-card-background, var(--card-background-color, #181818));
+      --mwc-card-border: var(--ha-card-border-color, var(--divider-color, rgba(255, 255, 255, 0.07)));
+      --mwc-card-shadow: var(--ha-card-box-shadow, 0 16px 36px rgba(0, 0, 0, 0.5));
+      --mwc-display-bg: #222222;
+      --mwc-display-border: rgba(255, 255, 255, 0.07);
+      --mwc-label-color: #888888;
+      --mwc-value-color: #f5f5f5;
+      --mwc-track-bg: #2c2c2c;
+      --mwc-progress-fill: var(--primary-color, #ffffff);
+      --mwc-knob-bg: #202020;
+      --mwc-knob-inner-bg: #292929;
       --mwc-knob-border: rgba(255, 255, 255, 0.08);
-      --mwc-knob-indicator: #8b97a8;
-      --mwc-knob-led-off: #373e4b;
-      --mwc-drum-frame-bg: #111419;
-      --mwc-drum-frame-border: #1a2029;
-      --mwc-drum-glass-start: #161a22;
-      --mwc-drum-glass-end: #0b0d11;
+      --mwc-knob-indicator: #aaaaaa;
+      --mwc-knob-led-off: #3a3a3a;
+      --mwc-drum-frame-bg: #141414;
+      --mwc-drum-frame-border: #202020;
+      --mwc-drum-glass-start: #242424;
+      --mwc-drum-glass-end: #0c0c0c;
     }
 
     .theme-light {
-      --mwc-card-bg: #dce3ed;
+      --mwc-card-bg: #e2e2e2;
       --mwc-card-border: rgba(0, 0, 0, 0.08);
-      --mwc-card-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
-      --mwc-display-bg: #c9d4e2;
-      --mwc-display-border: rgba(0, 0, 0, 0.06);
-      --mwc-label-color: #536277;
-      --mwc-value-color: #0f172a;
-      --mwc-track-bg: #b0bfd1;
-      --mwc-progress-fill: var(--primary-color, #0284c7);
-      --mwc-knob-bg: #c3cedc;
-      --mwc-knob-inner-bg: #b4c1d2;
+      --mwc-card-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      --mwc-display-bg: #d0d0d0;
+      --mwc-display-border: rgba(0, 0, 0, 0.08);
+      --mwc-label-color: #666666;
+      --mwc-value-color: #111111;
+      --mwc-track-bg: #b8b8b8;
+      --mwc-progress-fill: var(--primary-color, #222222);
+      --mwc-knob-bg: #c8c8c8;
+      --mwc-knob-inner-bg: #bcbcbc;
       --mwc-knob-border: rgba(0, 0, 0, 0.1);
-      --mwc-knob-indicator: #334155;
-      --mwc-knob-led-off: #8292a8;
-      --mwc-drum-frame-bg: #bac7d8;
-      --mwc-drum-frame-border: #a7b6cb;
-      --mwc-drum-glass-start: #1e2530;
-      --mwc-drum-glass-end: #0f1319;
+      --mwc-knob-indicator: #444444;
+      --mwc-knob-led-off: #8e8e8e;
+      --mwc-drum-frame-bg: #bfbfbf;
+      --mwc-drum-frame-border: #ababab;
+      --mwc-drum-glass-start: #242424;
+      --mwc-drum-glass-end: #0e0e0e;
     }
 
     .dashboard-top {
