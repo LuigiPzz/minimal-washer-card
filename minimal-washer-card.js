@@ -215,14 +215,37 @@ class MinimalWasherCard extends LitElement {
   static styles = css`
     :host {
       display: block;
+      --mwc-card-bg: var(--ha-card-background, var(--card-background-color, #15181e));
+      --mwc-card-border: var(--ha-card-border-color, var(--divider-color, rgba(125, 125, 125, 0.15)));
+      --mwc-card-shadow: var(--ha-card-box-shadow, 0 16px 36px rgba(0, 0, 0, 0.25));
+      --mwc-card-radius: var(--ha-card-border-radius, 28px);
+
+      --mwc-display-bg: var(--secondary-background-color, rgba(125, 125, 125, 0.08));
+      --mwc-display-border: var(--divider-color, rgba(125, 125, 125, 0.12));
+      --mwc-label-color: var(--secondary-text-color, #7a889b);
+      --mwc-value-color: var(--primary-text-color, #f0f4f8);
+
+      --mwc-track-bg: var(--divider-color, rgba(125, 125, 125, 0.2));
+      --mwc-progress-fill: var(--primary-color, #00b0ff);
+
+      --mwc-knob-bg: var(--secondary-background-color, #1c212a);
+      --mwc-knob-inner-bg: var(--primary-background-color, #252b37);
+      --mwc-knob-border: var(--divider-color, rgba(125, 125, 125, 0.15));
+      --mwc-knob-indicator: var(--secondary-text-color, #8b97a8);
+      --mwc-knob-led-off: var(--disabled-text-color, #5a6578);
+
+      --mwc-drum-frame-bg: var(--primary-background-color, #111419);
+      --mwc-drum-frame-border: var(--secondary-background-color, #1a2029);
+      --mwc-drum-glass-start: var(--card-background-color, #161a22);
+      --mwc-drum-glass-end: var(--primary-background-color, #0b0d11);
     }
 
     .washer-card {
-      background: #15181e;
-      border-radius: 28px;
+      background: var(--mwc-card-bg);
+      border-radius: var(--mwc-card-radius);
       padding: 20px 18px;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--mwc-card-shadow);
+      border: 1px solid var(--mwc-card-border);
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -242,8 +265,8 @@ class MinimalWasherCard extends LitElement {
     }
 
     .display-box {
-      background: #1b1f27;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--mwc-display-bg);
+      border: 1px solid var(--mwc-display-border);
       border-radius: 14px;
       padding: 10px 12px;
       flex: 1 1 0;
@@ -267,7 +290,7 @@ class MinimalWasherCard extends LitElement {
       font-size: 0.58rem;
       font-weight: 600;
       letter-spacing: 0.6px;
-      color: #6c7689;
+      color: var(--mwc-label-color);
       text-transform: uppercase;
       line-height: 1.2;
       flex-shrink: 0;
@@ -276,7 +299,7 @@ class MinimalWasherCard extends LitElement {
     .display-value {
       font-size: 0.85rem;
       font-weight: 700;
-      color: #f0f4f8;
+      color: var(--mwc-value-color);
       letter-spacing: 0.4px;
       line-height: 1.2;
       white-space: nowrap;
@@ -287,14 +310,14 @@ class MinimalWasherCard extends LitElement {
     .progress-bar-track {
       width: 100%;
       height: 3px;
-      background: #252c38;
+      background: var(--mwc-track-bg);
       border-radius: 2px;
       overflow: hidden;
     }
 
     .progress-bar-fill {
       height: 100%;
-      background: #00b0ff;
+      background: var(--mwc-progress-fill);
       border-radius: 2px;
       transition: width 0.4s ease;
     }
@@ -313,9 +336,9 @@ class MinimalWasherCard extends LitElement {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: #1c212a;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--mwc-knob-bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      border: 1px solid var(--mwc-knob-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -326,9 +349,9 @@ class MinimalWasherCard extends LitElement {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: #252b37;
-      box-shadow: inset 0 2px 5px rgba(255,255,255,0.06);
-      border: 1px solid rgba(0,0,0,0.4);
+      background: var(--mwc-knob-inner-bg);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.15);
+      border: 1px solid var(--mwc-knob-border);
       position: relative;
     }
 
@@ -339,7 +362,7 @@ class MinimalWasherCard extends LitElement {
       transform: translateX(-50%);
       width: 2px;
       height: 7px;
-      background: #8b97a8;
+      background: var(--mwc-knob-indicator);
       border-radius: 1px;
     }
 
@@ -355,7 +378,7 @@ class MinimalWasherCard extends LitElement {
     }
 
     .led-off {
-      background: #373e4b;
+      background: var(--mwc-knob-led-off);
       box-shadow: none;
     }
 
@@ -383,9 +406,9 @@ class MinimalWasherCard extends LitElement {
       width: 82%;
       height: 82%;
       border-radius: 50%;
-      background: #111419;
-      border: 10px solid #1a2029;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 2px 10px rgba(0,0,0,0.9);
+      background: var(--mwc-drum-frame-bg);
+      border: 10px solid var(--mwc-drum-frame-border);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35), inset 0 2px 10px rgba(0,0,0,0.5);
       box-sizing: border-box;
       display: flex;
       align-items: center;
@@ -397,7 +420,7 @@ class MinimalWasherCard extends LitElement {
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      background: radial-gradient(circle at 50% 50%, #161a22 0%, #0b0d11 100%);
+      background: radial-gradient(circle at 50% 50%, var(--mwc-drum-glass-start) 0%, var(--mwc-drum-glass-end) 100%);
       overflow: hidden;
       display: flex;
       align-items: center;
