@@ -102,6 +102,28 @@ class MinimalWasherCard extends LitElement {
     };
   }
 
+  static getGridOptions() {
+    return {
+      columns: 12,
+      min_columns: 6,
+      rows: "auto",
+      min_rows: 3
+    };
+  }
+
+  getGridOptions() {
+    return {
+      columns: 12,
+      min_columns: 6,
+      rows: "auto",
+      min_rows: 3
+    };
+  }
+
+  getCardSize() {
+    return 4;
+  }
+
   setConfig(config) {
     if (!config.cycle_entity || !config.time_entity) {
       throw new Error("Specificare sia cycle_entity che time_entity.");
@@ -143,8 +165,11 @@ class MinimalWasherCard extends LitElement {
     const isDrying = cycleLower.includes("asciugatura") || cycleLower.includes("dry");
     const isSpinning = cycleLower.includes("centrifuga") || cycleLower.includes("spin");
 
+    const isDarkMode = this.hass?.themes?.darkMode ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const themeClass = isDarkMode ? "theme-dark" : "theme-light";
+
     return html`
-      <div class="washer-card">
+      <div class="washer-card ${themeClass}">
         <div class="dashboard-top">
           <div class="display-box">
             <div class="display-header-row">
@@ -215,50 +240,72 @@ class MinimalWasherCard extends LitElement {
   static styles = css`
     :host {
       display: block;
-      --mwc-card-bg: var(--ha-card-background, var(--card-background-color, #15181e));
-      --mwc-card-border: var(--ha-card-border-color, var(--divider-color, rgba(125, 125, 125, 0.15)));
-      --mwc-card-shadow: var(--ha-card-box-shadow, 0 16px 36px rgba(0, 0, 0, 0.25));
-      --mwc-card-radius: var(--ha-card-border-radius, 28px);
-
-      --mwc-display-bg: var(--secondary-background-color, rgba(125, 125, 125, 0.08));
-      --mwc-display-border: var(--divider-color, rgba(125, 125, 125, 0.12));
-      --mwc-label-color: var(--secondary-text-color, #7a889b);
-      --mwc-value-color: var(--primary-text-color, #f0f4f8);
-
-      --mwc-track-bg: var(--divider-color, rgba(125, 125, 125, 0.2));
-      --mwc-progress-fill: var(--primary-color, #00b0ff);
-
-      --mwc-knob-bg: var(--secondary-background-color, #1c212a);
-      --mwc-knob-inner-bg: var(--primary-background-color, #252b37);
-      --mwc-knob-border: var(--divider-color, rgba(125, 125, 125, 0.15));
-      --mwc-knob-indicator: var(--secondary-text-color, #8b97a8);
-      --mwc-knob-led-off: var(--disabled-text-color, #5a6578);
-
-      --mwc-drum-frame-bg: var(--primary-background-color, #111419);
-      --mwc-drum-frame-border: var(--secondary-background-color, #1a2029);
-      --mwc-drum-glass-start: var(--card-background-color, #161a22);
-      --mwc-drum-glass-end: var(--primary-background-color, #0b0d11);
+      height: 100%;
     }
 
     .washer-card {
-      background: var(--mwc-card-bg);
-      border-radius: var(--mwc-card-radius);
+      container-type: inline-size;
+      border-radius: var(--ha-card-border-radius, 24px);
       padding: 20px 18px;
-      box-shadow: var(--mwc-card-shadow);
-      border: 1px solid var(--mwc-card-border);
       display: flex;
       flex-direction: column;
       gap: 20px;
       box-sizing: border-box;
       user-select: none;
       position: relative;
+      background: var(--mwc-card-bg);
+      border: 1px solid var(--mwc-card-border);
+      box-shadow: var(--mwc-card-shadow);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .theme-dark {
+      --mwc-card-bg: var(--ha-card-background, var(--card-background-color, #15181e));
+      --mwc-card-border: var(--ha-card-border-color, var(--divider-color, rgba(255, 255, 255, 0.08)));
+      --mwc-card-shadow: var(--ha-card-box-shadow, 0 16px 36px rgba(0, 0, 0, 0.45));
+      --mwc-display-bg: #1b1f27;
+      --mwc-display-border: rgba(255, 255, 255, 0.06);
+      --mwc-label-color: #78859b;
+      --mwc-value-color: #f0f4f8;
+      --mwc-track-bg: #252c38;
+      --mwc-progress-fill: var(--primary-color, #00b0ff);
+      --mwc-knob-bg: #1c212a;
+      --mwc-knob-inner-bg: #252b37;
+      --mwc-knob-border: rgba(255, 255, 255, 0.08);
+      --mwc-knob-indicator: #8b97a8;
+      --mwc-knob-led-off: #373e4b;
+      --mwc-drum-frame-bg: #111419;
+      --mwc-drum-frame-border: #1a2029;
+      --mwc-drum-glass-start: #161a22;
+      --mwc-drum-glass-end: #0b0d11;
+    }
+
+    .theme-light {
+      --mwc-card-bg: #dce3ed;
+      --mwc-card-border: rgba(0, 0, 0, 0.08);
+      --mwc-card-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
+      --mwc-display-bg: #c9d4e2;
+      --mwc-display-border: rgba(0, 0, 0, 0.06);
+      --mwc-label-color: #536277;
+      --mwc-value-color: #0f172a;
+      --mwc-track-bg: #b0bfd1;
+      --mwc-progress-fill: var(--primary-color, #0284c7);
+      --mwc-knob-bg: #c3cedc;
+      --mwc-knob-inner-bg: #b4c1d2;
+      --mwc-knob-border: rgba(0, 0, 0, 0.1);
+      --mwc-knob-indicator: #334155;
+      --mwc-knob-led-off: #8292a8;
+      --mwc-drum-frame-bg: #bac7d8;
+      --mwc-drum-frame-border: #a7b6cb;
+      --mwc-drum-glass-start: #1e2530;
+      --mwc-drum-glass-end: #0f1319;
     }
 
     .dashboard-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       position: relative;
       z-index: 5;
       width: 100%;
@@ -268,14 +315,56 @@ class MinimalWasherCard extends LitElement {
       background: var(--mwc-display-bg);
       border: 1px solid var(--mwc-display-border);
       border-radius: 14px;
-      padding: 10px 12px;
+      padding: 8px 10px;
       flex: 1 1 0;
       min-width: 0;
-      height: 60px;
+      height: 56px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-sizing: border-box;
+    }
+
+    @container (max-width: 290px) {
+      .washer-card {
+        padding: 14px 12px;
+        gap: 14px;
+      }
+      .dashboard-top {
+        gap: 8px;
+      }
+      .display-box {
+        padding: 6px 8px;
+        height: 50px;
+        border-radius: 10px;
+      }
+      .display-label {
+        font-size: 0.50rem;
+      }
+      .display-value {
+        font-size: 0.74rem;
+      }
+      .knob-container {
+        width: 44px;
+        height: 44px;
+      }
+      .knob-body {
+        width: 42px;
+        height: 42px;
+      }
+      .knob-inner {
+        width: 26px;
+        height: 26px;
+      }
+      .knob-led {
+        width: 7px;
+        height: 7px;
+      }
+      .drum-outer-frame {
+        width: 90%;
+        height: 90%;
+        border-width: 7px;
+      }
     }
 
     .display-header-row {
