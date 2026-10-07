@@ -220,12 +220,12 @@ class MinimalWasherCard extends LitElement {
     .washer-card {
       background: #15181e;
       border-radius: 28px;
-      padding: 24px;
+      padding: 20px 18px;
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
       border: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
       box-sizing: border-box;
       user-select: none;
       position: relative;
@@ -235,8 +235,10 @@ class MinimalWasherCard extends LitElement {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       position: relative;
       z-index: 5;
+      width: 100%;
     }
 
     .display-box {
@@ -244,7 +246,8 @@ class MinimalWasherCard extends LitElement {
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 14px;
       padding: 10px 12px;
-      width: 115px;
+      flex: 1 1 0;
+      min-width: 0;
       height: 60px;
       display: flex;
       flex-direction: column;
@@ -256,6 +259,7 @@ class MinimalWasherCard extends LitElement {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
       width: 100%;
     }
 
@@ -266,6 +270,7 @@ class MinimalWasherCard extends LitElement {
       color: #6c7689;
       text-transform: uppercase;
       line-height: 1.2;
+      flex-shrink: 0;
     }
 
     .display-value {
@@ -296,8 +301,9 @@ class MinimalWasherCard extends LitElement {
 
     .knob-container {
       position: relative;
-      width: 58px;
-      height: 58px;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
