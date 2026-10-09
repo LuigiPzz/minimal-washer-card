@@ -318,7 +318,6 @@ class MinimalWasherCard extends LitElement {
                     <line class="delay-hand" x1="50" y1="50" x2="50" y2="24"></line>
                     <circle class="delay-center-dot" cx="50" cy="50" r="3.2"></circle>
                   </svg>
-                  <div class="delay-sublabel">Avvio Programmato</div>
                 </div>
               </div>
             </div>
@@ -799,11 +798,8 @@ class MinimalWasherCard extends LitElement {
       width: 82%;
       height: 82%;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 22px;
-      box-sizing: border-box;
+      justify-content: center;
     }
 
     .delay-svg {
@@ -848,18 +844,6 @@ class MinimalWasherCard extends LitElement {
     .delay-center-dot {
       fill: var(--mwc-progress-fill, #ffffff);
       opacity: 0.85;
-    }
-
-    .delay-sublabel {
-      position: relative;
-      z-index: 4;
-      font-size: 0.58rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.1px;
-      color: var(--mwc-label-color);
-      opacity: 0.85;
-      text-align: center;
     }
   `;
 }
