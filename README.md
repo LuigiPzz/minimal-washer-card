@@ -63,6 +63,7 @@ time_entity: sensor.lavatrice_tempo_rimanente
 progress_entity: sensor.lavatrice_avanzamento_percentuale
 power_entity: binary_sensor.lavatrice_alimentazione
 smart_control_entity: binary_sensor.lavatrice_smart_control
+delay_entity: number.lavatrice_ritardo_di_avvio
 ```
 
 ---
@@ -71,11 +72,12 @@ smart_control_entity: binary_sensor.lavatrice_smart_control
 
 | Parametro | Tipo | Obbligatorio | Descrizione |
 | :--- | :--- | :--- | :--- |
-| `cycle_entity` | `entity_id` | **Sì** | Sensore con lo stato/fase del ciclo (es. *Lavaggio*, *Risciacquo*, *Centrifuga*, *Asciugatura*, *Spento*). |
+| `cycle_entity` | `entity_id` | **Sì** | Sensore con lo stato/fase del ciclo (es. *Lavaggio*, *Risciacquo*, *Centrifuga*, *Asciugatura*, *Delay Wash / Ritardo*, *Spento*). |
 | `time_entity` | `entity_id` | **Sì** | Sensore che riporta il tempo residuo (es. `00:30`, `1h 15m`). |
 | `progress_entity` | `entity_id` | No | Sensore numerico percentuale (0-100) per la barra di progresso. |
 | `power_entity` | `entity_id` | No | Entità (`binary_sensor`, `switch`, `sensor`) per lo stato di accensione (LED verde). |
 | `smart_control_entity` | `entity_id` | No | Entità (`binary_sensor`, `switch`, `sensor`) per il controllo Smart (LED blu). |
+| `delay_entity` | `entity_id` | No | Sensore o `number` con le ore di ritardo (es. `number.lavatrice_ritardo_di_avvio` in formato decimale `x.xxxx` o orario), convertito automaticamente in formato `HH:MM`. |
 
 ---
 
@@ -84,6 +86,7 @@ Le animazioni dell'oblò si attivano automaticamente leggendo lo stato di `cycle
 - **Lavaggio**: Se il valore contiene `lavaggio` o `wash`.
 - **Centrifuga**: Se il valore contiene `centrifuga` o `spin`.
 - **Asciugatura**: Se il valore contiene `asciugatura` o `dry`.
+- **Avvio Ritardato**: Se il valore contiene `delay`, `ritardo`, `partenza` o `posticipat` (attiva l'animazione timer orbitante con countdown in formato `HH:MM`).
 
 ---
 

@@ -44,6 +44,11 @@ class MinimalWasherCardEditor extends LitElement {
         name: "smart_control_entity",
         label: "Sensore Controllo Smart (LED Blu)",
         selector: { entity: { domain: ["binary_sensor", "switch", "sensor"] } }
+      },
+      {
+        name: "delay_entity",
+        label: "Sensore/Number Ritardo Avvio (es. number.lavatrice_ritardo_di_avvio)",
+        selector: { entity: { domain: ["number", "sensor", "input_number"] } }
       }
     ];
   }
@@ -98,7 +103,8 @@ class MinimalWasherCard extends LitElement {
       time_entity: "",
       progress_entity: "",
       power_entity: "",
-      smart_control_entity: ""
+      smart_control_entity: "",
+      delay_entity: ""
     };
   }
 
@@ -122,6 +128,27 @@ class MinimalWasherCard extends LitElement {
 
   getCardSize() {
     return 4;
+  }
+
+  _formatDelayTime(rawVal) {
+    if (rawVal === undefined || rawVal === null || rawVal === "" || rawVal === "unavailable" || rawVal === "unknown") {
+      return null;
+    }
+    const str = String(rawVal).trim().replace(",", ".");
+    const num = parseFloat(str);
+    if (!isNaN(num) && isFinite(num)) {
+      const totalSeconds = Math.round(num * 3600);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+    }
+    if (str.includes(":")) {
+      const parts = str.split(":");
+      if (parts.length >= 2) {
+        return `${parts[0].padStart(2, "0")}:${parts[1].padStart(2, "0")}`;
+      }
+    }
+    return str;
   }
 
   setConfig(config) {
@@ -164,6 +191,19 @@ class MinimalWasherCard extends LitElement {
     const isWashing = cycleLower.includes("lavaggio") || cycleLower.includes("wash");
     const isDrying = cycleLower.includes("asciugatura") || cycleLower.includes("dry");
     const isSpinning = cycleLower.includes("centrifuga") || cycleLower.includes("spin");
+    const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
+
+    let delayFormatted = null;
+    if (this._config.delay_entity) {
+      const dState = this.hass.states[this._config.delay_entity]?.state;
+      delayFormatted = this._formatDelayTime(dState);
+    }
+    if (!delayFormatted && isDelayWash) {
+      delayFormatted = this._formatDelayTime(timeState) || timeState;
+    }
+
+    const displayTime = isDelayWash && delayFormatted ? delayFormatted : timeState;
+    const timeLabel = isDelayWash ? "Ritardo" : "Tempo";
 
     const isDarkMode = this.hass?.themes?.darkMode ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
     const themeClass = isDarkMode ? "theme-dark" : "theme-light";
@@ -189,8 +229,8 @@ class MinimalWasherCard extends LitElement {
 
           <div class="display-box">
             <div class="display-header-row">
-              <span class="display-label">Tempo</span>
-              <span class="display-value">${timeState}</span>
+              <span class="display-label">${timeLabel}</span>
+              <span class="display-value">${displayTime}</span>
             </div>
             <div class="progress-bar-track">
               <div class="progress-bar-fill" style="width: ${progress}%;"></div>
@@ -229,6 +269,24 @@ class MinimalWasherCard extends LitElement {
                   <circle class="spin-line spin-l3" cx="50" cy="50" r="26"></circle>
                   <circle class="spin-line spin-l4" cx="50" cy="50" r="20"></circle>
                 </svg>
+              </div>
+
+              <div class="delay-fx-wrapper" style="display: ${isDelayWash ? "flex" : "none"};">
+                <div class="delay-dial">
+                  <svg class="delay-svg" viewBox="0 0 100 100">
+                    <circle class="delay-track" cx="50" cy="50" r="42"></circle>
+                    <circle class="delay-pulse-ring" cx="50" cy="50" r="42"></circle>
+                    <line class="delay-hand" x1="50" y1="50" x2="50" y2="24"></line>
+                    <circle class="delay-center-dot" cx="50" cy="50" r="3.5"></circle>
+                  </svg>
+                  <div class="delay-text-container">
+                    <svg class="delay-icon" viewBox="0 0 24 24">
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/>
+                    </svg>
+                    <span class="delay-time-value">${displayTime}</span>
+                    <span class="delay-sublabel">Ritardo Avvio</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -680,6 +738,101 @@ class MinimalWasherCard extends LitElement {
     @keyframes spinRun {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    .delay-fx-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .delay-dial {
+      position: relative;
+      width: 82%;
+      height: 82%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .delay-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .delay-track {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 2;
+    }
+
+    .delay-pulse-ring {
+      fill: none;
+      stroke: var(--mwc-progress-fill, #ffffff);
+      stroke-width: 2.2;
+      stroke-dasharray: 45 160;
+      stroke-linecap: round;
+      transform-origin: 50% 50%;
+      animation: spinRun 4s infinite linear;
+      opacity: 0.85;
+    }
+
+    .delay-hand {
+      stroke: var(--mwc-progress-fill, #ffffff);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      transform-origin: 50% 50%;
+      animation: spinRun 12s infinite linear;
+      opacity: 0.45;
+    }
+
+    .delay-center-dot {
+      fill: var(--mwc-progress-fill, #ffffff);
+      opacity: 0.6;
+    }
+
+    .delay-text-container {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .delay-icon {
+      width: 16px;
+      height: 16px;
+      fill: var(--mwc-label-color);
+      opacity: 0.85;
+      margin-bottom: 2px;
+    }
+
+    .delay-time-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--mwc-value-color);
+      letter-spacing: 1px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+    }
+
+    .delay-sublabel {
+      font-size: 0.54rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--mwc-label-color);
     }
   `;
 }
