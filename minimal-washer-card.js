@@ -130,23 +130,28 @@ class MinimalWasherCard extends LitElement {
     return 4;
   }
 
-  _formatDelayTime(rawVal) {
+  _formatTime(rawVal) {
     if (rawVal === undefined || rawVal === null || rawVal === "" || rawVal === "unavailable" || rawVal === "unknown") {
-      return null;
+      return "--:--";
     }
     const str = String(rawVal).trim().replace(",", ".");
-    const num = parseFloat(str);
-    if (!isNaN(num) && isFinite(num)) {
-      const totalSeconds = Math.round(num * 3600);
-      const hours = Math.floor(totalSeconds / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
-    }
     if (str.includes(":")) {
       const parts = str.split(":");
       if (parts.length >= 2) {
         return `${parts[0].padStart(2, "0")}:${parts[1].padStart(2, "0")}`;
       }
+    }
+    const num = parseFloat(str);
+    if (!isNaN(num) && isFinite(num)) {
+      let totalMinutes = 0;
+      if (num > 24) {
+        totalMinutes = Math.round(num);
+      } else {
+        totalMinutes = Math.round(num * 60);
+      }
+      const hours = Math.floor(totalMinutes / 60);
+      const mins = totalMinutes % 60;
+      return `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
     }
     return str;
   }
@@ -191,7 +196,7 @@ class MinimalWasherCard extends LitElement {
 
     const rawCycle = this.hass.states[this._config.cycle_entity]?.state ?? "idle";
     const cycleLabel = this._getCycleLabel(rawCycle);
-    const timeState = this.hass.states[this._config.time_entity]?.state ?? "--:--";
+    const rawTime = this.hass.states[this._config.time_entity]?.state ?? "--:--";
 
     let progress = 0;
     if (this._config.progress_entity) {
@@ -217,21 +222,21 @@ class MinimalWasherCard extends LitElement {
     }
 
     const cycleLower = String(rawCycle).toLowerCase();
-    const isWashing = cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo");
-    const isDrying = cycleLower.includes("dry") || cycleLower.includes("asciugatura");
-    const isSpinning = cycleLower.includes("spin") || cycleLower.includes("centrifuga");
     const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("programmato") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
+    const isWashing = !isDelayWash && (cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
+    const isDrying = !isDelayWash && (cycleLower.includes("dry") || cycleLower.includes("asciugatura"));
+    const isSpinning = !isDelayWash && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
 
     let delayFormatted = null;
     if (this._config.delay_entity) {
       const dState = this.hass.states[this._config.delay_entity]?.state;
-      delayFormatted = this._formatDelayTime(dState);
+      delayFormatted = this._formatTime(dState);
     }
-    if (!delayFormatted && isDelayWash) {
-      delayFormatted = this._formatDelayTime(timeState) || timeState;
+    if (!delayFormatted || delayFormatted === "--:--") {
+      delayFormatted = this._formatTime(rawTime);
     }
 
-    const displayTime = isDelayWash && delayFormatted ? delayFormatted : timeState;
+    const displayTime = isDelayWash ? delayFormatted : this._formatTime(rawTime);
     const timeLabel = isDelayWash ? "Ritardo" : "Tempo";
 
     const isDarkMode = this.hass?.themes?.darkMode ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -312,8 +317,7 @@ class MinimalWasherCard extends LitElement {
                     <svg class="delay-icon" viewBox="0 0 24 24">
                       <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/>
                     </svg>
-                    <span class="delay-time-value">${displayTime}</span>
-                    <span class="delay-sublabel">Ritardo Avvio</span>
+                    <span class="delay-sublabel">Avvio Programmato</span>
                   </div>
                 </div>
               </div>
@@ -849,28 +853,18 @@ class MinimalWasherCard extends LitElement {
     }
 
     .delay-icon {
-      width: 16px;
-      height: 16px;
+      width: 26px;
+      height: 26px;
       fill: var(--mwc-label-color);
-      opacity: 0.85;
-      margin-bottom: 2px;
-    }
-
-    .delay-time-value {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--mwc-value-color);
-      letter-spacing: 1px;
-      font-variant-numeric: tabular-nums;
-      line-height: 1.1;
-      text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+      opacity: 0.9;
+      margin-bottom: 4px;
     }
 
     .delay-sublabel {
-      font-size: 0.54rem;
-      font-weight: 600;
+      font-size: 0.62rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
       color: var(--mwc-label-color);
     }
   `;
