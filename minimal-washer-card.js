@@ -151,6 +151,34 @@ class MinimalWasherCard extends LitElement {
     return str;
   }
 
+  _getCycleLabel(state) {
+    if (!state) return "Off";
+    const raw = String(state).trim();
+    const key = raw.toLowerCase().replace(/[\s_-]+/g, "");
+    const map = {
+      idle: "Off",
+      off: "Off",
+      standby: "Standby",
+      delaywash: "Lavaggio programmato",
+      delay_wash: "Lavaggio programmato",
+      laundrysensing: "Rilevamento carico bucato",
+      weightsensing: "Rilevamento peso",
+      weight_sensing: "Rilevamento peso",
+      wash: "Lavaggio",
+      washing: "Lavaggio",
+      rinse: "Risciacquo",
+      rinsing: "Risciacquo",
+      spinning: "Centrifuga",
+      spin: "Centrifuga",
+      drying: "Asciugatura",
+      dry: "Asciugatura",
+      finished: "Completato",
+      complete: "Completato",
+      end: "Completato"
+    };
+    return map[key] || map[raw.toLowerCase()] || raw;
+  }
+
   setConfig(config) {
     if (!config.cycle_entity || !config.time_entity) {
       throw new Error("Specificare sia cycle_entity che time_entity.");
@@ -161,7 +189,8 @@ class MinimalWasherCard extends LitElement {
   render() {
     if (!this.hass || !this._config) return html``;
 
-    const cycleState = this.hass.states[this._config.cycle_entity]?.state ?? "Spento";
+    const rawCycle = this.hass.states[this._config.cycle_entity]?.state ?? "idle";
+    const cycleLabel = this._getCycleLabel(rawCycle);
     const timeState = this.hass.states[this._config.time_entity]?.state ?? "--:--";
 
     let progress = 0;
@@ -187,11 +216,11 @@ class MinimalWasherCard extends LitElement {
       ledClass = isSmartOn ? "knob-led led-blue" : "knob-led led-green";
     }
 
-    const cycleLower = cycleState.toLowerCase();
-    const isWashing = cycleLower.includes("lavaggio") || cycleLower.includes("wash");
-    const isDrying = cycleLower.includes("asciugatura") || cycleLower.includes("dry");
-    const isSpinning = cycleLower.includes("centrifuga") || cycleLower.includes("spin");
-    const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
+    const cycleLower = String(rawCycle).toLowerCase();
+    const isWashing = cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo");
+    const isDrying = cycleLower.includes("dry") || cycleLower.includes("asciugatura");
+    const isSpinning = cycleLower.includes("spin") || cycleLower.includes("centrifuga");
+    const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("programmato") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
 
     let delayFormatted = null;
     if (this._config.delay_entity) {
@@ -215,7 +244,7 @@ class MinimalWasherCard extends LitElement {
             <div class="display-header-row">
               <span class="display-label">Ciclo</span>
             </div>
-            <span class="display-value">${cycleState}</span>
+            <span class="display-value cycle-value">${cycleLabel}</span>
           </div>
 
           <div class="knob-container">
@@ -447,11 +476,21 @@ class MinimalWasherCard extends LitElement {
       font-size: 0.85rem;
       font-weight: 700;
       color: var(--mwc-value-color);
-      letter-spacing: 0.4px;
-      line-height: 1.2;
+      letter-spacing: 0.3px;
+      line-height: 1.15;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .cycle-value {
+      font-size: clamp(0.68rem, 2.3cqi, 0.80rem);
+      line-height: 1.1;
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .progress-bar-track {
