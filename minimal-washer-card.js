@@ -308,17 +308,17 @@ class MinimalWasherCard extends LitElement {
               <div class="delay-fx-wrapper" style="display: ${isDelayWash ? "flex" : "none"};">
                 <div class="delay-dial">
                   <svg class="delay-svg" viewBox="0 0 100 100">
-                    <circle class="delay-track" cx="50" cy="50" r="42"></circle>
-                    <circle class="delay-pulse-ring" cx="50" cy="50" r="42"></circle>
+                    <line class="delay-tick" x1="50" y1="14" x2="50" y2="18"></line>
+                    <line class="delay-tick" x1="86" y1="50" x2="82" y2="50"></line>
+                    <line class="delay-tick" x1="50" y1="86" x2="50" y2="82"></line>
+                    <line class="delay-tick" x1="14" y1="50" x2="18" y2="50"></line>
+
+                    <circle class="delay-track" cx="50" cy="50" r="36"></circle>
+                    <circle class="delay-pulse-ring" cx="50" cy="50" r="36"></circle>
                     <line class="delay-hand" x1="50" y1="50" x2="50" y2="24"></line>
-                    <circle class="delay-center-dot" cx="50" cy="50" r="3.5"></circle>
+                    <circle class="delay-center-dot" cx="50" cy="50" r="3.2"></circle>
                   </svg>
-                  <div class="delay-text-container">
-                    <svg class="delay-icon" viewBox="0 0 24 24">
-                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/>
-                    </svg>
-                    <span class="delay-sublabel">Avvio Programmato</span>
-                  </div>
+                  <div class="delay-sublabel">Avvio Programmato</div>
                 </div>
               </div>
             </div>
@@ -801,7 +801,9 @@ class MinimalWasherCard extends LitElement {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
+      padding-bottom: 22px;
+      box-sizing: border-box;
     }
 
     .delay-svg {
@@ -811,17 +813,23 @@ class MinimalWasherCard extends LitElement {
       height: 100%;
     }
 
+    .delay-tick {
+      stroke: rgba(255, 255, 255, 0.22);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+    }
+
     .delay-track {
       fill: none;
       stroke: rgba(255, 255, 255, 0.08);
-      stroke-width: 2;
+      stroke-width: 1.8;
     }
 
     .delay-pulse-ring {
       fill: none;
       stroke: var(--mwc-progress-fill, #ffffff);
       stroke-width: 2.2;
-      stroke-dasharray: 45 160;
+      stroke-dasharray: 45 140;
       stroke-linecap: round;
       transform-origin: 50% 50%;
       animation: spinRun 4s infinite linear;
@@ -830,42 +838,28 @@ class MinimalWasherCard extends LitElement {
 
     .delay-hand {
       stroke: var(--mwc-progress-fill, #ffffff);
-      stroke-width: 1.8;
+      stroke-width: 2;
       stroke-linecap: round;
       transform-origin: 50% 50%;
       animation: spinRun 12s infinite linear;
-      opacity: 0.45;
+      opacity: 0.6;
     }
 
     .delay-center-dot {
       fill: var(--mwc-progress-fill, #ffffff);
-      opacity: 0.6;
-    }
-
-    .delay-text-container {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-    }
-
-    .delay-icon {
-      width: 26px;
-      height: 26px;
-      fill: var(--mwc-label-color);
-      opacity: 0.9;
-      margin-bottom: 4px;
+      opacity: 0.85;
     }
 
     .delay-sublabel {
-      font-size: 0.62rem;
+      position: relative;
+      z-index: 4;
+      font-size: 0.58rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.1px;
       color: var(--mwc-label-color);
+      opacity: 0.85;
+      text-align: center;
     }
   `;
 }
