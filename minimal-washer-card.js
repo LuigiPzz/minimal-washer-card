@@ -272,8 +272,8 @@ class MinimalWasherCard extends LitElement {
           <div class="display-box">
             <div class="display-header-row">
               <span class="display-label">${timeLabel}</span>
-              <span class="display-value">${displayTime}</span>
             </div>
+            <span class="display-value time-value">${displayTime}</span>
             <div class="progress-bar-track">
               <div class="progress-bar-fill" style="width: ${progress}%;"></div>
             </div>
@@ -512,6 +512,12 @@ class MinimalWasherCard extends LitElement {
       text-overflow: ellipsis;
     }
 
+    .time-value {
+      font-size: clamp(0.72rem, 2.6cqi, 0.85rem);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.4px;
+    }
+
     .cycle-value {
       font-size: clamp(0.66rem, 2.2cqi, 0.78rem);
       line-height: 1.1;
@@ -610,10 +616,12 @@ class MinimalWasherCard extends LitElement {
     .drum-area {
       position: relative;
       width: 100%;
+      max-width: min(100%, 300px);
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 0 auto;
     }
 
     .drum-outer-frame {
