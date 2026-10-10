@@ -110,24 +110,26 @@ class MinimalWasherCard extends LitElement {
 
   static getGridOptions() {
     return {
-      columns: 12,
+      columns: 6,
       min_columns: 6,
+      max_columns: 12,
       rows: "auto",
-      min_rows: 3
+      min_rows: 2
     };
   }
 
   getGridOptions() {
     return {
-      columns: 12,
+      columns: 6,
       min_columns: 6,
+      max_columns: 12,
       rows: "auto",
-      min_rows: 3
+      min_rows: 2
     };
   }
 
   getCardSize() {
-    return 4;
+    return 3;
   }
 
   _formatTime(rawVal) {
@@ -353,16 +355,16 @@ class MinimalWasherCard extends LitElement {
   static styles = css`
     :host {
       display: block;
-      height: 100%;
+      box-sizing: border-box;
     }
 
     .washer-card {
       container-type: inline-size;
       border-radius: var(--ha-card-border-radius, 24px);
-      padding: 20px 18px;
+      padding: 16px 14px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 14px;
       box-sizing: border-box;
       user-select: none;
       position: relative;
@@ -370,6 +372,7 @@ class MinimalWasherCard extends LitElement {
       border: 1px solid var(--mwc-card-border);
       box-shadow: var(--mwc-card-shadow);
       transition: background 0.3s ease, border-color 0.3s ease;
+      width: 100%;
     }
 
     .theme-dark {
@@ -431,7 +434,7 @@ class MinimalWasherCard extends LitElement {
       padding: 8px 10px;
       flex: 1 1 0;
       min-width: 0;
-      height: 56px;
+      height: 54px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -440,43 +443,43 @@ class MinimalWasherCard extends LitElement {
 
     @container (max-width: 290px) {
       .washer-card {
-        padding: 14px 12px;
-        gap: 14px;
+        padding: 12px 10px;
+        gap: 10px;
       }
       .dashboard-top {
-        gap: 8px;
+        gap: 6px;
       }
       .display-box {
-        padding: 6px 8px;
-        height: 50px;
+        padding: 5px 7px;
+        height: 46px;
         border-radius: 10px;
       }
       .display-label {
-        font-size: 0.50rem;
+        font-size: 0.48rem;
       }
       .display-value {
-        font-size: 0.74rem;
+        font-size: 0.72rem;
       }
       .knob-container {
-        width: 44px;
-        height: 44px;
-      }
-      .knob-body {
         width: 42px;
         height: 42px;
       }
+      .knob-body {
+        width: 40px;
+        height: 40px;
+      }
       .knob-inner {
-        width: 26px;
-        height: 26px;
+        width: 24px;
+        height: 24px;
       }
       .knob-led {
-        width: 7px;
-        height: 7px;
+        width: 6px;
+        height: 6px;
       }
       .drum-outer-frame {
-        width: 90%;
-        height: 90%;
-        border-width: 7px;
+        width: 96%;
+        height: 96%;
+        border-width: 6px;
       }
     }
 
@@ -510,7 +513,7 @@ class MinimalWasherCard extends LitElement {
     }
 
     .cycle-value {
-      font-size: clamp(0.68rem, 2.3cqi, 0.80rem);
+      font-size: clamp(0.66rem, 2.2cqi, 0.78rem);
       line-height: 1.1;
       white-space: normal;
       display: -webkit-box;
@@ -536,8 +539,8 @@ class MinimalWasherCard extends LitElement {
 
     .knob-container {
       position: relative;
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -545,8 +548,8 @@ class MinimalWasherCard extends LitElement {
     }
 
     .knob-body {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--mwc-knob-bg);
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -558,8 +561,8 @@ class MinimalWasherCard extends LitElement {
     }
 
     .knob-inner {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: var(--mwc-knob-inner-bg);
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.15);
@@ -615,11 +618,11 @@ class MinimalWasherCard extends LitElement {
 
     .drum-outer-frame {
       position: absolute;
-      width: 82%;
-      height: 82%;
+      width: 94%;
+      height: 94%;
       border-radius: 50%;
       background: var(--mwc-drum-frame-bg);
-      border: 10px solid var(--mwc-drum-frame-border);
+      border: 8px solid var(--mwc-drum-frame-border);
       box-shadow: 0 8px 24px rgba(0,0,0,0.35), inset 0 2px 10px rgba(0,0,0,0.5);
       box-sizing: border-box;
       display: flex;
