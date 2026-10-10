@@ -354,8 +354,10 @@ class MinimalWasherCard extends LitElement {
 
   static styles = css`
     :host {
-      display: block;
+      display: flex;
+      justify-content: center;
       box-sizing: border-box;
+      width: 100%;
     }
 
     .washer-card {
@@ -373,6 +375,8 @@ class MinimalWasherCard extends LitElement {
       box-shadow: var(--mwc-card-shadow);
       transition: background 0.3s ease, border-color 0.3s ease;
       width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
     }
 
     .theme-dark {
@@ -616,12 +620,10 @@ class MinimalWasherCard extends LitElement {
     .drum-area {
       position: relative;
       width: 100%;
-      max-width: min(100%, 300px);
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto;
     }
 
     .drum-outer-frame {
