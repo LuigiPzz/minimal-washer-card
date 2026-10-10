@@ -106,13 +106,14 @@ La card traduce e mappa automaticamente i seguenti stati:
 | :--- | :--- | :--- |
 | `idle` / `off` / `standby` | **Off** | *Nessuna* |
 | `delaywash` / `delay_wash` / `delay` | **Lavaggio programmato** | 🕒 Timer Vettoriale Orbitante con Countdown |
-| `laundrysensing` | **Rilevamento carico bucato** | *Nessuna* |
+| `laundrysensing` | **Rilevamento carico** | *Nessuna* |
 | `weight_sensing` / `weightsensing` | **Rilevamento peso** | *Nessuna* |
 | `wash` / `washing` | **Lavaggio** | 🌊 Onde d'Acqua Fluide |
 | `rinse` / `rinsing` | **Risciacquo** | 🌊 Onde d'Acqua Fluide |
-| `spinning` / `spin` | **Centrifuga** | 🌪️ Anelli Rotanti Alta Velocità |
+| `spin` / `spinning` | **Centrifuga** | 🌪️ Anelli Rotanti Alta Velocità |
 | `drying` / `dry` | **Asciugatura** | ♨️ Alone Termico e Linee di Calore |
-| `finished` / `complete` / `end` | **Completato** | *Nessuna* |
+| `finish` / `finished` / `complete` / `end` | **Completato** | *Nessuna* |
+| `drumcleaning` / `drum_cleaning` | **Pulizia cestello** | ✨ Vortice Sanificazione & Scintille |
 
 ---
 

@@ -166,20 +166,25 @@ class MinimalWasherCard extends LitElement {
       standby: "Standby",
       delaywash: "Lavaggio programmato",
       delay_wash: "Lavaggio programmato",
-      laundrysensing: "Rilevamento carico bucato",
+      laundrysensing: "Rilevamento carico",
+      laundry_sensing: "Rilevamento carico",
       weightsensing: "Rilevamento peso",
       weight_sensing: "Rilevamento peso",
       wash: "Lavaggio",
       washing: "Lavaggio",
       rinse: "Risciacquo",
       rinsing: "Risciacquo",
-      spinning: "Centrifuga",
       spin: "Centrifuga",
+      spinning: "Centrifuga",
       drying: "Asciugatura",
       dry: "Asciugatura",
+      finish: "Completato",
       finished: "Completato",
       complete: "Completato",
-      end: "Completato"
+      end: "Completato",
+      drumcleaning: "Pulizia cestello",
+      drum_cleaning: "Pulizia cestello",
+      puliziacestello: "Pulizia cestello"
     };
     return map[key] || map[raw.toLowerCase()] || raw;
   }
@@ -223,9 +228,10 @@ class MinimalWasherCard extends LitElement {
 
     const cycleLower = String(rawCycle).toLowerCase();
     const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("programmato") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
-    const isWashing = !isDelayWash && (cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
-    const isDrying = !isDelayWash && (cycleLower.includes("dry") || cycleLower.includes("asciugatura"));
-    const isSpinning = !isDelayWash && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
+    const isDrumCleaning = cycleLower.includes("drumclean") || cycleLower.includes("pulizia") || cycleLower.includes("clean");
+    const isWashing = !isDelayWash && !isDrumCleaning && (cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
+    const isDrying = !isDelayWash && !isDrumCleaning && (cycleLower.includes("dry") || cycleLower.includes("asciugatura"));
+    const isSpinning = !isDelayWash && !isDrumCleaning && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
 
     let delayFormatted = null;
     if (this._config.delay_entity) {
@@ -319,6 +325,23 @@ class MinimalWasherCard extends LitElement {
                     <circle class="delay-center-dot" cx="50" cy="50" r="3.2"></circle>
                   </svg>
                 </div>
+              </div>
+
+              <div class="drumclean-fx-wrapper" style="display: ${isDrumCleaning ? "flex" : "none"};">
+                <div class="clean-glow"></div>
+                <svg class="drumclean-svg" viewBox="0 0 100 100">
+                  <path class="clean-spray spray-1" d="M 50 14 A 36 36 0 0 1 86 50" />
+                  <path class="clean-spray spray-2" d="M 86 50 A 36 36 0 0 1 50 86" />
+                  <path class="clean-spray spray-3" d="M 50 86 A 36 36 0 0 1 14 50" />
+                  <path class="clean-spray spray-4" d="M 14 50 A 36 36 0 0 1 50 14" />
+
+                  <circle class="clean-sparkle sp-1" cx="35" cy="38" r="2.5"></circle>
+                  <circle class="clean-sparkle sp-2" cx="65" cy="34" r="3"></circle>
+                  <circle class="clean-sparkle sp-3" cx="68" cy="64" r="2.2"></circle>
+                  <circle class="clean-sparkle sp-4" cx="36" cy="66" r="2.8"></circle>
+
+                  <path class="clean-star" d="M 50 40 L 52.5 47.5 L 60 50 L 52.5 52.5 L 50 60 L 47.5 52.5 L 40 50 L 47.5 47.5 Z" />
+                </svg>
               </div>
             </div>
           </div>
@@ -844,6 +867,81 @@ class MinimalWasherCard extends LitElement {
     .delay-center-dot {
       fill: var(--mwc-progress-fill, #ffffff);
       opacity: 0.85;
+    }
+
+    .drumclean-fx-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .clean-glow {
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 210, 180, 0.22) 0%, transparent 70%);
+      animation: cleanGlow 2.8s infinite ease-in-out;
+    }
+
+    @keyframes cleanGlow {
+      0%, 100% { transform: scale(0.9); opacity: 0.4; }
+      50% { transform: scale(1.15); opacity: 0.9; }
+    }
+
+    .drumclean-svg {
+      width: 86%;
+      height: 86%;
+    }
+
+    .clean-spray {
+      fill: none;
+      stroke: var(--mwc-progress-fill, #00d2b4);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-dasharray: 22 38;
+      transform-origin: 50% 50%;
+      animation: spinRun 2.2s infinite linear;
+      opacity: 0.8;
+    }
+
+    .spray-2 { animation-delay: -0.55s; opacity: 0.65; stroke-width: 1.8; }
+    .spray-3 { animation-delay: -1.1s; opacity: 0.8; stroke-width: 2.2; }
+    .spray-4 { animation-delay: -1.65s; opacity: 0.65; stroke-width: 1.8; }
+
+    .clean-sparkle {
+      fill: var(--mwc-progress-fill, #ffffff);
+      opacity: 0.85;
+      animation: sparklePulse 2s infinite ease-in-out;
+      transform-origin: 50% 50%;
+    }
+
+    .sp-1 { animation-delay: 0.2s; }
+    .sp-2 { animation-delay: 0.7s; }
+    .sp-3 { animation-delay: 1.2s; }
+    .sp-4 { animation-delay: 1.7s; }
+
+    @keyframes sparklePulse {
+      0%, 100% { transform: scale(0.7); opacity: 0.3; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    .clean-star {
+      fill: var(--mwc-progress-fill, #ffffff);
+      opacity: 0.9;
+      transform-origin: 50% 50%;
+      animation: starRotate 4.5s infinite ease-in-out;
+    }
+
+    @keyframes starRotate {
+      0% { transform: rotate(0deg) scale(0.85); opacity: 0.55; }
+      50% { transform: rotate(180deg) scale(1.18); opacity: 1; }
+      100% { transform: rotate(360deg) scale(0.85); opacity: 0.55; }
     }
   `;
 }
