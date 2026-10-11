@@ -106,8 +106,8 @@ La card traduce e mappa automaticamente i seguenti stati:
 | :--- | :--- | :--- |
 | `idle` / `off` / `standby` | **Off** | *Nessuna* |
 | `delaywash` / `delay_wash` / `delay` | **Lavaggio programmato** | 🕒 Timer Vettoriale Orbitante con Countdown |
-| `laundrysensing` | **Rilevamento carico** | *Nessuna* |
-| `weight_sensing` / `weightsensing` | **Rilevamento peso** | *Nessuna* |
+| `laundrysensing` | **Rilevamento carico** | ⚖️ Scansione Carico & Oscillazione Cestello |
+| `weight_sensing` / `weightsensing` | **Rilevamento peso** | ⚖️ Scansione Carico & Oscillazione Cestello |
 | `wash` / `washing` | **Lavaggio** | 🌊 Onde d'Acqua Fluide |
 | `rinse` / `rinsing` | **Risciacquo** | 🌊 Onde d'Acqua Fluide |
 | `spin` / `spinning` | **Centrifuga** | 🌪️ Anelli Rotanti Alta Velocità |

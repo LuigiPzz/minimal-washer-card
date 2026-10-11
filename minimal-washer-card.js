@@ -229,11 +229,12 @@ class MinimalWasherCard extends LitElement {
     }
 
     const cycleLower = String(rawCycle).toLowerCase();
+    const isSensing = cycleLower.includes("sensing") || cycleLower.includes("peso") || cycleLower.includes("carico") || cycleLower.includes("weight") || cycleLower.includes("laundry");
     const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("programmato") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
     const isDrumCleaning = cycleLower.includes("drumclean") || cycleLower.includes("pulizia") || cycleLower.includes("clean");
-    const isWashing = !isDelayWash && !isDrumCleaning && (cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
-    const isDrying = !isDelayWash && !isDrumCleaning && (cycleLower.includes("dry") || cycleLower.includes("asciugatura"));
-    const isSpinning = !isDelayWash && !isDrumCleaning && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
+    const isWashing = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
+    const isDrying = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("drying") || cycleLower.includes("asciugatura") || (cycleLower.includes("dry") && !cycleLower.includes("laundry")));
+    const isSpinning = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
 
     let delayFormatted = null;
     if (this._config.delay_entity) {
@@ -344,6 +345,18 @@ class MinimalWasherCard extends LitElement {
 
                   <path class="clean-star" d="M 50 40 L 52.5 47.5 L 60 50 L 52.5 52.5 L 50 60 L 47.5 52.5 L 40 50 L 47.5 47.5 Z" />
                 </svg>
+              </div>
+
+              <div class="sensing-fx-wrapper" style="display: ${isSensing ? "flex" : "none"};">
+                <div class="sensing-radar">
+                  <svg class="sensing-svg" viewBox="0 0 100 100">
+                    <circle class="sensing-ring ring-1" cx="50" cy="50" r="38"></circle>
+                    <circle class="sensing-ring ring-2" cx="50" cy="50" r="26"></circle>
+                    <circle class="sensing-ring ring-3" cx="50" cy="50" r="14"></circle>
+                    <line class="sensing-needle" x1="50" y1="50" x2="50" y2="18"></line>
+                    <circle class="sensing-hub" cx="50" cy="50" r="3.2"></circle>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -955,6 +968,79 @@ class MinimalWasherCard extends LitElement {
       0% { transform: rotate(0deg) scale(0.85); opacity: 0.55; }
       50% { transform: rotate(180deg) scale(1.18); opacity: 1; }
       100% { transform: rotate(360deg) scale(0.85); opacity: 0.55; }
+    }
+
+    .sensing-fx-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .sensing-radar {
+      width: 80%;
+      height: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sensing-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sensing-ring {
+      fill: none;
+      stroke: var(--mwc-progress-fill, #ffffff);
+      stroke-width: 1.5;
+      opacity: 0.25;
+      transform-origin: 50% 50%;
+    }
+
+    .ring-1 {
+      animation: sensingPulse 2.4s infinite ease-in-out;
+      stroke-dasharray: 60 40;
+    }
+
+    .ring-2 {
+      animation: sensingPulse 2.4s infinite ease-in-out 0.6s;
+      stroke-dasharray: 40 30;
+    }
+
+    .ring-3 {
+      animation: sensingPulse 2.4s infinite ease-in-out 1.2s;
+    }
+
+    @keyframes sensingPulse {
+      0%, 100% { transform: scale(0.92); opacity: 0.2; }
+      50% { transform: scale(1.06); opacity: 0.75; }
+    }
+
+    .sensing-needle {
+      stroke: var(--mwc-progress-fill, #ffffff);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      transform-origin: 50% 50%;
+      animation: sensingTumble 2.6s infinite ease-in-out;
+    }
+
+    .sensing-hub {
+      fill: var(--mwc-progress-fill, #ffffff);
+      opacity: 0.9;
+    }
+
+    @keyframes sensingTumble {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(40deg); }
+      45% { transform: rotate(40deg); }
+      70% { transform: rotate(-40deg); }
+      85% { transform: rotate(-40deg); }
+      100% { transform: rotate(0deg); }
     }
   `;
 }
