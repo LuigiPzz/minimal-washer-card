@@ -223,7 +223,7 @@ class MinimalWasherCard extends LitElement {
       isSmartOn = sState === "on" || sState === "true";
     }
 
-    let ledClass = "knob-led led-off";
+    let ledClass = "knob-led led-red";
     if (isPowerOn) {
       ledClass = isSmartOn ? "knob-led led-blue" : "knob-led led-green";
     }
@@ -262,6 +262,13 @@ class MinimalWasherCard extends LitElement {
           </div>
 
           <div class="knob-container">
+            <svg class="knob-progress-ring" viewBox="0 0 58 58">
+              <circle class="knob-progress-bg" cx="29" cy="29" r="27" />
+              <circle class="knob-progress-arc" cx="29" cy="29" r="27"
+                stroke-dasharray="${169.646}"
+                stroke-dashoffset="${169.646 - (169.646 * progress / 100)}"
+                style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
+            </svg>
             <div class="${ledClass}"></div>
             <div class="knob-body">
               <div class="knob-inner">
@@ -275,9 +282,6 @@ class MinimalWasherCard extends LitElement {
               <span class="display-label">${timeLabel}</span>
             </div>
             <span class="display-value time-value">${displayTime}</span>
-            <div class="progress-bar-track">
-              <div class="progress-bar-fill" style="width: ${progress}%;"></div>
-            </div>
           </div>
         </div>
 
@@ -478,8 +482,8 @@ class MinimalWasherCard extends LitElement {
         font-size: 0.72rem;
       }
       .knob-container {
-        width: 42px;
-        height: 42px;
+        width: 48px;
+        height: 48px;
       }
       .knob-body {
         width: 40px;
@@ -562,12 +566,37 @@ class MinimalWasherCard extends LitElement {
 
     .knob-container {
       position: relative;
-      width: 50px;
-      height: 50px;
+      width: 58px;
+      height: 58px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .knob-progress-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+      z-index: 1;
+    }
+
+    .knob-progress-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.06);
+      stroke-width: 3;
+    }
+
+    .knob-progress-arc {
+      fill: none;
+      stroke: #00b0ff;
+      stroke-width: 3;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s ease;
+      filter: drop-shadow(0 0 4px rgba(0, 176, 255, var(--progress-glow, 0)));
     }
 
     .knob-body {
@@ -618,6 +647,11 @@ class MinimalWasherCard extends LitElement {
     .led-off {
       background: var(--mwc-knob-led-off);
       box-shadow: none;
+    }
+
+    .led-red {
+      background: #ff1744;
+      box-shadow: 0 0 8px #ff1744, 0 0 16px #ff1744;
     }
 
     .led-green {
