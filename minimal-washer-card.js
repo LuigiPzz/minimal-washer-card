@@ -375,7 +375,7 @@ class MinimalWasherCard extends LitElement {
 
     .washer-card {
       container-type: inline-size;
-      border-radius: var(--ha-card-border-radius, 24px);
+      border-radius: var(--ha-card-border-radius, 12px);
       padding: 16px 14px;
       display: flex;
       flex-direction: column;
