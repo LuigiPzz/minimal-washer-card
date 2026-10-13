@@ -486,8 +486,8 @@ class MinimalWasherCard extends LitElement {
         height: 40px;
       }
       .knob-inner {
-        width: 24px;
-        height: 24px;
+        width: 30px;
+        height: 30px;
       }
       .knob-led {
         width: 6px;
@@ -584,8 +584,8 @@ class MinimalWasherCard extends LitElement {
     }
 
     .knob-inner {
-      width: 30px;
-      height: 30px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--mwc-knob-inner-bg);
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.15);
