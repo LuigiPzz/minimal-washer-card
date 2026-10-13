@@ -8,6 +8,12 @@ Una custom card per **Home Assistant (Lovelace)** dal design ultra-minimale ed e
 
 Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutte le fasi del ciclo (lavaggio, centrifuga, asciugatura, avvio ritardato), palette monocromatica senza dominanti bluastre e supporto nativo per le Sezioni (Grid View) di Home Assistant.
 
+<p align="center">
+  <img src="docs/images/wash.jpg" alt="Lavaggio" width="250" />
+  <img src="docs/images/spin.jpg" alt="Centrifuga" width="250" />
+  <img src="docs/images/dry.jpg" alt="Asciugatura" width="250" />
+</p>
+
 ---
 
 ## ✨ Caratteristiche Principali
@@ -24,6 +30,8 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
   - 🌪️ **Centrifuga**: Anelli rotanti ultra-sottili ad altissima velocità.
   - ♨️ **Asciugatura**: Alone termico pulsante e linee di calore dinamiche.
   - 🕒 **Lavaggio Programmato / Partenza Ritardata**: Quadrante timer orbitante vettoriale con indicazione in grande del countdown.
+  - ✨ **Pulizia Cestello**: Vortice di sanificazione con scintille.
+  - ⚖️ **Rilevamento Carico / Peso**: Scansione radar e oscillazione cestello.
 - 🇮🇹 **Traduzione Automatica degli Stati del Ciclo**:
   - Converte automaticamente gli stati in inglese dei sensori (es. `idle`, `delaywash`, `laundrysensing`, `wash`, `spinning`, ecc.) in descrizioni in italiano chiare e leggibili su display multilinea.
 - ⏱️ **Gestione Ore di Ritardo & Conversione `HH:MM`**:
@@ -39,35 +47,44 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
 
 ## 📦 Installazione
 
-### Metodo 1: Tramite HACS (Consigliato)
+### HACS (Consigliato)
 
-1. Assicurati di avere [HACS](https://hacs.xyz/) installato in Home Assistant.
-2. Vai su **HACS** > **Frontend** (o *Interfaccia*).
-3. Clicca sui **3 puntini in alto a destra** e seleziona **Repository personalizzati** (*Custom repositories*).
-4. Inserisci l'URL:
-   ```text
+Minimal Washer Card è disponibile come repository personalizzato in [HACS](https://hacs.xyz/) (Home Assistant Community Store).
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=LuigiPzz&repository=minimal-washer-card&category=plugin)
+
+_oppure_
+
+1. Installa [HACS](https://hacs.xyz/) se non lo hai già
+2. Apri HACS in Home Assistant
+3. Clicca sui **3 puntini in alto a destra** → **Repository personalizzati**
+4. Inserisci l'URL del repository:
+   ```
    https://github.com/LuigiPzz/minimal-washer-card
    ```
-5. Categoria: **Dashboard** (oppure *Lovelace*).
-6. Clicca su **Aggiungi**, cerca **Minimal Washer Card** e premi **Scarica**.
-7. Ricarica la dashboard di Home Assistant quando richiesto.
+5. Categoria: **Dashboard** (o *Lovelace*)
+6. Clicca **Aggiungi**, cerca **Minimal Washer Card** e premi **Scarica** ⬇️
 
-### Metodo 2: Installazione Manuale
+### Manuale
 
-1. Scarica il file `minimal-washer-card.js` dalla [pagina Release](https://github.com/LuigiPzz/minimal-washer-card/releases).
-2. Copia il file nella cartella `config/www/` di Home Assistant (es. `/config/www/minimal-washer-card.js`).
-3. Vai in **Impostazioni** > **Dashboard** > **3 puntini in alto a destra** > **Risorse**.
-4. Aggiungi una risorsa:
-   - **URL**: `/local/minimal-washer-card.js`
-   - **Tipo**: `Modulo JavaScript` (`module`)
-5. Ricarica la pagina del browser.
+1. Scarica il file `minimal-washer-card.js` dall'[ultima release](https://github.com/LuigiPzz/minimal-washer-card/releases).
+2. Copia il file nella cartella `config/www/` di Home Assistant.
+3. Aggiungi la risorsa in uno dei due modi:
+   - **Tramite UI:** _Impostazioni_ → _Dashboard_ → _icona 3 puntini_ → _Risorse_ → _Aggiungi risorsa_ → URL: `/local/minimal-washer-card.js` → Tipo: `Modulo JavaScript`.
+     > **Nota:** Se non vedi il menu Risorse, abilita la _Modalità avanzata_ nel tuo _Profilo utente_.
+   - **Tramite YAML:** Aggiungi il seguente codice alla sezione `lovelace`:
+     ```yaml
+     resources:
+       - url: /local/minimal-washer-card.js
+         type: module
+     ```
 
 ---
 
 ## ⚙️ Configurazione
 
 ### Configurazione Visuale (GUI)
-1. Nella tua dashboard Lovelace, clicca su **Modifica Dashboard** > **Aggiungi Scheda**.
+1. Nella tua dashboard Lovelace, clicca su **Modifica Dashboard** → **Aggiungi Scheda**.
 2. Cerca e seleziona **Minimal Washer Card**.
 3. Seleziona le entità desiderate dai menu a tendina.
 
