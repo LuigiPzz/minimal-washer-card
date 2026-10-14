@@ -483,10 +483,10 @@ class MinimalWasherCard extends LitElement {
         border-radius: 10px;
       }
       .display-label {
-        font-size: 0.48rem;
+        font-size: 0.54rem;
       }
       .display-value {
-        font-size: 0.72rem;
+        font-size: 0.80rem;
       }
       .knob-container {
         width: 44px;
@@ -517,7 +517,7 @@ class MinimalWasherCard extends LitElement {
     }
 
     .display-label {
-      font-size: 0.58rem;
+      font-size: 0.64rem;
       font-weight: 600;
       letter-spacing: 0.6px;
       color: var(--mwc-label-color);
@@ -527,7 +527,7 @@ class MinimalWasherCard extends LitElement {
     }
 
     .display-value {
-      font-size: 0.85rem;
+      font-size: 0.94rem;
       font-weight: 700;
       color: var(--mwc-value-color);
       letter-spacing: 0.3px;
@@ -538,14 +538,14 @@ class MinimalWasherCard extends LitElement {
     }
 
     .time-value {
-      font-size: clamp(0.72rem, 2.6cqi, 0.85rem);
+      font-size: clamp(0.78rem, 2.9cqi, 0.94rem);
       font-variant-numeric: tabular-nums;
       letter-spacing: 0.4px;
     }
 
     .cycle-value {
-      font-size: clamp(0.66rem, 2.2cqi, 0.78rem);
-      line-height: 1.1;
+      font-size: clamp(0.72rem, 2.5cqi, 0.86rem);
+      line-height: 1.15;
       white-space: normal;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -702,7 +702,7 @@ class MinimalWasherCard extends LitElement {
       left: 0;
       width: 100%;
       height: 52%;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .wave-svg {
