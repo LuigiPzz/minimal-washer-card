@@ -298,13 +298,13 @@ class MinimalWasherCard extends LitElement {
               <div class="liquid-wrapper" style="display: ${isRinsing ? "block" : "none"};">
                 <div class="wave-container rinse-wave-container">
                   <svg class="wave-svg rinse-wave-1" viewBox="0 0 800 120" preserveAspectRatio="none">
-                    <path d="M 0 30 Q 100 55 200 30 T 400 30 T 600 30 T 800 30 L 800 120 L 0 120 Z"></path>
+                    <path d="M 0 35 Q 100 65 200 35 T 400 35 T 600 35 T 800 35 L 800 120 L 0 120 Z"></path>
                   </svg>
                   <svg class="wave-svg rinse-wave-2" viewBox="0 0 800 120" preserveAspectRatio="none">
-                    <path d="M 0 40 Q 100 15 200 40 T 400 40 T 600 40 T 800 40 L 800 120 L 0 120 Z"></path>
+                    <path d="M 0 45 Q 100 15 200 45 T 400 45 T 600 45 T 800 45 L 800 120 L 0 120 Z"></path>
                   </svg>
                   <svg class="wave-svg rinse-wave-3" viewBox="0 0 800 120" preserveAspectRatio="none">
-                    <path d="M 0 50 Q 80 30 160 50 T 320 50 T 480 50 T 640 50 T 800 50 L 800 120 L 0 120 Z"></path>
+                    <path d="M 0 40 Q 50 25 100 40 T 200 40 T 300 40 T 400 40 T 500 40 T 600 40 T 700 40 T 800 40 L 800 120 L 0 120 Z"></path>
                   </svg>
                 </div>
               </div>
@@ -746,21 +746,21 @@ class MinimalWasherCard extends LitElement {
     }
 
     .rinse-wave-1 {
-      fill: #00e5ff;
+      fill: #079392;
       opacity: 0.35;
-      animation: waveFlow 3.2s linear infinite reverse;
+      animation: waveFlow 4.5s linear infinite reverse;
     }
 
     .rinse-wave-2 {
-      fill: #00e5ff;
-      opacity: 0.60;
-      animation: waveFlow 2.1s linear infinite;
+      fill: #079392;
+      opacity: 0.55;
+      animation: waveFlow 3.0s linear infinite;
     }
 
     .rinse-wave-3 {
-      fill: #00e5ff;
-      opacity: 0.88;
-      animation: waveFlow 1.6s linear infinite reverse;
+      fill: #079392;
+      opacity: 0.75;
+      animation: waveFlow 2.0s linear infinite reverse;
     }
 
     .dry-fx-wrapper {
