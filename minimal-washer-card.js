@@ -635,8 +635,9 @@ class MinimalWasherCard extends LitElement {
 
     .knob-led {
       position: absolute;
-      top: 0px;
-      right: 0px;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 8px;
       height: 8px;
       border-radius: 50%;
