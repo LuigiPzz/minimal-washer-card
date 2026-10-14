@@ -394,7 +394,7 @@ class MinimalWasherCard extends LitElement {
     .theme-dark {
       --mwc-card-bg: var(--ha-card-background, var(--card-background-color, #181818));
       --mwc-card-border: var(--ha-card-border-color, var(--divider-color, rgba(255, 255, 255, 0.07)));
-      --mwc-card-shadow: var(--ha-card-box-shadow, 0 16px 36px rgba(0, 0, 0, 0.5));
+      --mwc-card-shadow: var(--ha-card-box-shadow, none);
       --mwc-display-bg: #222222;
       --mwc-display-border: rgba(255, 255, 255, 0.07);
       --mwc-label-color: #888888;
@@ -415,7 +415,7 @@ class MinimalWasherCard extends LitElement {
     .theme-light {
       --mwc-card-bg: #e2e2e2;
       --mwc-card-border: rgba(0, 0, 0, 0.08);
-      --mwc-card-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      --mwc-card-shadow: var(--ha-card-box-shadow, none);
       --mwc-display-bg: #d0d0d0;
       --mwc-display-border: rgba(0, 0, 0, 0.08);
       --mwc-label-color: #666666;
