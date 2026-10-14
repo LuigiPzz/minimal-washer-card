@@ -262,11 +262,11 @@ class MinimalWasherCard extends LitElement {
             </div>
 
             <div class="knob-container">
-              <svg class="knob-progress-ring" viewBox="0 0 58 58">
-                <circle class="knob-progress-bg" cx="29" cy="29" r="25.5" />
-                <circle class="knob-progress-arc" cx="29" cy="29" r="25.5"
-                  stroke-dasharray="${160.22}"
-                  stroke-dashoffset="${160.22 - (160.22 * progress / 100)}"
+              <svg class="knob-progress-ring" viewBox="0 0 52 52">
+                <circle class="knob-progress-bg" cx="26" cy="26" r="23" />
+                <circle class="knob-progress-arc" cx="26" cy="26" r="23"
+                  stroke-dasharray="${144.51}"
+                  stroke-dashoffset="${144.51 - (144.51 * progress / 100)}"
                   style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
               </svg>
               <div class="knob-body">
@@ -489,12 +489,12 @@ class MinimalWasherCard extends LitElement {
         font-size: 0.72rem;
       }
       .knob-container {
-        width: 48px;
-        height: 48px;
+        width: 44px;
+        height: 44px;
       }
       .knob-body {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
       }
       .knob-led {
         width: 3px;
@@ -570,8 +570,8 @@ class MinimalWasherCard extends LitElement {
 
     .knob-container {
       position: relative;
-      width: 58px;
-      height: 58px;
+      width: 52px;
+      height: 52px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -605,8 +605,8 @@ class MinimalWasherCard extends LitElement {
     }
 
     .knob-body {
-      width: 48px;
-      height: 48px;
+      width: 43px;
+      height: 43px;
       border-radius: 50%;
       background: radial-gradient(circle at 50% 50%, var(--mwc-knob-inner-bg) 0%, var(--mwc-knob-bg) 100%);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.1);
