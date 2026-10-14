@@ -254,34 +254,32 @@ class MinimalWasherCard extends LitElement {
     return html`
       <div class="washer-card ${themeClass}">
         <div class="dashboard-top">
-          <div class="display-box">
-            <div class="display-header-row">
+          <div class="display-panel">
+            <div class="panel-section panel-left">
               <span class="display-label">Ciclo</span>
+              <span class="display-value cycle-value">${cycleLabel}</span>
             </div>
-            <span class="display-value cycle-value">${cycleLabel}</span>
-          </div>
 
-          <div class="knob-container">
-            <svg class="knob-progress-ring" viewBox="0 0 58 58">
-              <circle class="knob-progress-bg" cx="29" cy="29" r="27" />
-              <circle class="knob-progress-arc" cx="29" cy="29" r="27"
-                stroke-dasharray="${169.646}"
-                stroke-dashoffset="${169.646 - (169.646 * progress / 100)}"
-                style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
-            </svg>
-            <div class="${ledClass}"></div>
-            <div class="knob-body">
-              <div class="knob-inner">
-                <div class="knob-indicator"></div>
+            <div class="knob-container">
+              <svg class="knob-progress-ring" viewBox="0 0 58 58">
+                <circle class="knob-progress-bg" cx="29" cy="29" r="27" />
+                <circle class="knob-progress-arc" cx="29" cy="29" r="27"
+                  stroke-dasharray="${169.646}"
+                  stroke-dashoffset="${169.646 - (169.646 * progress / 100)}"
+                  style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
+              </svg>
+              <div class="${ledClass}"></div>
+              <div class="knob-body">
+                <div class="knob-inner">
+                  <div class="knob-indicator"></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="display-box">
-            <div class="display-header-row">
+            <div class="panel-section panel-right">
               <span class="display-label">${timeLabel}</span>
+              <span class="display-value time-value">${displayTime}</span>
             </div>
-            <span class="display-value time-value">${displayTime}</span>
           </div>
         </div>
 
@@ -448,18 +446,30 @@ class MinimalWasherCard extends LitElement {
       width: 100%;
     }
 
-    .display-box {
+    .display-panel {
       background: var(--mwc-display-bg);
       border: 1px solid var(--mwc-display-border);
       border-radius: 14px;
-      padding: 8px 10px;
-      flex: 1 1 0;
-      min-width: 0;
-      height: 54px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .panel-section {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      box-sizing: border-box;
+      gap: 2px;
+      min-width: 0;
+      flex: 1 1 0;
+    }
+
+    .panel-right {
+      align-items: flex-end;
+      text-align: right;
     }
 
     @container (max-width: 290px) {
@@ -470,9 +480,8 @@ class MinimalWasherCard extends LitElement {
       .dashboard-top {
         gap: 6px;
       }
-      .display-box {
-        padding: 5px 7px;
-        height: 46px;
+      .display-panel {
+        padding: 5px 8px;
         border-radius: 10px;
       }
       .display-label {
