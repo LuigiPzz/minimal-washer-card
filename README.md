@@ -10,7 +10,7 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
 
 <p align="center">
   <img src="docs/images/wash.png" alt="Lavaggio" width="250" />
-  <img src="docs/images/spin.jpg" alt="Centrifuga" width="250" />
+  <img src="docs/images/spin.png" alt="Centrifuga" width="250" />
   <img src="docs/images/dry.jpg" alt="Asciugatura" width="250" />
 </p>
 
