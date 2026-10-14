@@ -262,10 +262,10 @@ class MinimalWasherCard extends LitElement {
 
             <div class="knob-container">
               <svg class="knob-progress-ring" viewBox="0 0 58 58">
-                <circle class="knob-progress-bg" cx="29" cy="29" r="27" />
-                <circle class="knob-progress-arc" cx="29" cy="29" r="27"
-                  stroke-dasharray="${169.646}"
-                  stroke-dashoffset="${169.646 - (169.646 * progress / 100)}"
+                <circle class="knob-progress-bg" cx="29" cy="29" r="25.5" />
+                <circle class="knob-progress-arc" cx="29" cy="29" r="25.5"
+                  stroke-dasharray="${160.22}"
+                  stroke-dashoffset="${160.22 - (160.22 * progress / 100)}"
                   style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
               </svg>
               <div class="${ledClass}"></div>
@@ -595,17 +595,18 @@ class MinimalWasherCard extends LitElement {
 
     .knob-progress-bg {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.06);
-      stroke-width: 3;
+      stroke: rgba(255, 255, 255, 0.04);
+      stroke-width: 2.5;
     }
 
     .knob-progress-arc {
       fill: none;
       stroke: #00b0ff;
-      stroke-width: 3;
+      stroke-width: 2.5;
       stroke-linecap: round;
       transition: stroke-dashoffset 0.6s ease;
-      filter: drop-shadow(0 0 4px rgba(0, 176, 255, var(--progress-glow, 0)));
+      filter: drop-shadow(0 0 3px rgba(0, 176, 255, var(--progress-glow, 0)))
+             drop-shadow(0 0 6px rgba(0, 176, 255, var(--progress-glow, 0)));
     }
 
     .knob-body {
