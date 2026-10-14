@@ -236,6 +236,7 @@ class MinimalWasherCard extends LitElement {
     const isWashing = !isDelayWash && !isDrumCleaning && !isSensing && !isRinsing && (cycleLower.includes("wash") || cycleLower.includes("lavaggio"));
     const isDrying = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("drying") || cycleLower.includes("asciugatura") || (cycleLower.includes("dry") && !cycleLower.includes("laundry")));
     const isSpinning = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
+    const isFinished = isPowerOn && !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("finish") || cycleLower.includes("complet") || cycleLower.includes("end"));
 
     let delayFormatted = null;
     if (this._config.delay_entity) {
@@ -296,15 +297,22 @@ class MinimalWasherCard extends LitElement {
               </div>
 
               <div class="liquid-wrapper" style="display: ${isRinsing ? "block" : "none"};">
+                <svg class="rinse-rain-svg" viewBox="0 0 100 100">
+                  <line class="rinse-drop drop-c1-1" x1="28" y1="0" x2="28" y2="9"></line>
+                  <line class="rinse-drop drop-c1-2" x1="28" y1="0" x2="28" y2="7"></line>
+                  <line class="rinse-drop drop-c2-1" x1="42" y1="0" x2="42" y2="11"></line>
+                  <line class="rinse-drop drop-c2-2" x1="42" y1="0" x2="42" y2="8"></line>
+                  <line class="rinse-drop drop-c3-1" x1="58" y1="0" x2="58" y2="12"></line>
+                  <line class="rinse-drop drop-c3-2" x1="58" y1="0" x2="58" y2="7"></line>
+                  <line class="rinse-drop drop-c4-1" x1="72" y1="0" x2="72" y2="8"></line>
+                  <line class="rinse-drop drop-c4-2" x1="72" y1="0" x2="72" y2="6"></line>
+                </svg>
                 <div class="wave-container rinse-wave-container">
                   <svg class="wave-svg rinse-wave-1" viewBox="0 0 800 120" preserveAspectRatio="none">
                     <path d="M 0 35 Q 100 65 200 35 T 400 35 T 600 35 T 800 35 L 800 120 L 0 120 Z"></path>
                   </svg>
                   <svg class="wave-svg rinse-wave-2" viewBox="0 0 800 120" preserveAspectRatio="none">
                     <path d="M 0 45 Q 100 15 200 45 T 400 45 T 600 45 T 800 45 L 800 120 L 0 120 Z"></path>
-                  </svg>
-                  <svg class="wave-svg rinse-wave-3" viewBox="0 0 800 120" preserveAspectRatio="none">
-                    <path d="M 0 40 Q 50 25 100 40 T 200 40 T 300 40 T 400 40 T 500 40 T 600 40 T 700 40 T 800 40 L 800 120 L 0 120 Z"></path>
                   </svg>
                 </div>
               </div>
@@ -371,6 +379,28 @@ class MinimalWasherCard extends LitElement {
                     <circle class="sensing-hub" cx="50" cy="50" r="3.2"></circle>
                   </svg>
                 </div>
+              </div>
+
+              <div class="finish-fx-wrapper" style="display: ${isFinished ? "flex" : "none"};">
+                <svg class="finish-svg" viewBox="0 0 100 100">
+                  <g class="finish-shirt-group">
+                    <path class="finish-shirt-body" d="M 36 30 L 20 38 L 26 50 L 32 46 L 32 75 L 68 75 L 68 46 L 74 50 L 80 38 L 64 30 C 60 36, 40 36, 36 30 Z" />
+                    <path class="finish-shirt-collar" d="M 38 31 C 42 37, 58 37, 62 31" />
+                    <path class="finish-shirt-pocket" d="M 39 46 L 47 46 L 47 54 C 47 56, 39 56, 39 54 Z" />
+                  </g>
+                  <g class="finish-sparkle sparkle-1">
+                    <path d="M 75 16 C 75 22, 75 22, 83 24 C 75 24, 75 24, 75 32 C 75 24, 75 24, 67 24 C 75 24, 75 22, 75 16 Z" fill="#00b0ff" />
+                    <circle cx="75" cy="24" r="1.5" fill="#ffffff" />
+                  </g>
+                  <g class="finish-sparkle sparkle-2">
+                    <path d="M 20 56 C 20 60, 20 60, 26 62 C 20 62, 20 62, 20 68 C 20 62, 20 62, 14 62 C 20 62, 20 60, 20 56 Z" fill="#00e5ff" />
+                    <circle cx="20" cy="62" r="1.2" fill="#ffffff" />
+                  </g>
+                  <g class="finish-sparkle sparkle-3">
+                    <path d="M 68 62 C 68 65, 68 65, 72 66 C 68 66, 68 66, 68 70 C 68 66, 68 66, 64 66 C 68 66, 68 65, 68 62 Z" fill="#38bdf8" />
+                    <circle cx="68" cy="66" r="1.0" fill="#ffffff" />
+                  </g>
+                </svg>
               </div>
             </div>
           </div>
@@ -741,26 +771,93 @@ class MinimalWasherCard extends LitElement {
       100% { transform: translateX(-50%); }
     }
 
+    .rinse-rain-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .rinse-drop {
+      stroke-linecap: round;
+    }
+
+    .drop-c1-1 {
+      stroke: #079392;
+      stroke-width: 1.6;
+      opacity: 0.65;
+      animation: dropFallDense 1.3s infinite linear;
+    }
+    .drop-c1-2 {
+      stroke: #2dd4bf;
+      stroke-width: 1.4;
+      opacity: 0.8;
+      animation: dropFallDense 1.3s infinite linear 0.65s;
+    }
+
+    .drop-c2-1 {
+      stroke: #2dd4bf;
+      stroke-width: 1.8;
+      opacity: 0.85;
+      animation: dropFallDense 1.05s infinite linear 0.2s;
+    }
+    .drop-c2-2 {
+      stroke: #079392;
+      stroke-width: 1.5;
+      opacity: 0.6;
+      animation: dropFallDense 1.05s infinite linear 0.72s;
+    }
+
+    .drop-c3-1 {
+      stroke: #2dd4bf;
+      stroke-width: 1.8;
+      opacity: 0.85;
+      animation: dropFallDense 1.15s infinite linear 0.45s;
+    }
+    .drop-c3-2 {
+      stroke: #079392;
+      stroke-width: 1.4;
+      opacity: 0.6;
+      animation: dropFallDense 1.15s infinite linear 0.98s;
+    }
+
+    .drop-c4-1 {
+      stroke: #079392;
+      stroke-width: 1.6;
+      opacity: 0.65;
+      animation: dropFallDense 1.4s infinite linear 0.1s;
+    }
+    .drop-c4-2 {
+      stroke: #2dd4bf;
+      stroke-width: 1.3;
+      opacity: 0.8;
+      animation: dropFallDense 1.4s infinite linear 0.8s;
+    }
+
+    @keyframes dropFallDense {
+      0% { transform: translateY(-40px); opacity: 0; }
+      15% { opacity: 0.9; }
+      80% { opacity: 0.9; }
+      100% { transform: translateY(125px); opacity: 0; }
+    }
+
     .rinse-wave-container {
-      height: 65%;
+      height: 45%;
     }
 
     .rinse-wave-1 {
       fill: #079392;
-      opacity: 0.35;
+      opacity: 0.4;
       animation: waveFlow 4.5s linear infinite reverse;
     }
 
     .rinse-wave-2 {
       fill: #079392;
-      opacity: 0.55;
-      animation: waveFlow 3.0s linear infinite;
-    }
-
-    .rinse-wave-3 {
-      fill: #079392;
       opacity: 0.75;
-      animation: waveFlow 2.0s linear infinite reverse;
+      animation: waveFlow 2.8s linear infinite;
     }
 
     .dry-fx-wrapper {
@@ -1094,6 +1191,86 @@ class MinimalWasherCard extends LitElement {
       70% { transform: rotate(-40deg); }
       85% { transform: rotate(-40deg); }
       100% { transform: rotate(0deg); }
+    }
+
+    .finish-fx-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .finish-svg {
+      width: 62%;
+      height: 62%;
+      overflow: visible;
+    }
+
+    .finish-shirt-group {
+      transform-origin: 50px 52px;
+      animation: finishShirtBreathe 4s infinite ease-in-out;
+    }
+
+    .finish-shirt-body {
+      fill: rgba(255, 255, 255, 0.08);
+      stroke: #f0f4f8;
+      stroke-width: 2.0;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    .finish-shirt-collar {
+      fill: none;
+      stroke: #f0f4f8;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+
+    .finish-shirt-pocket {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.3);
+      stroke-width: 1.2;
+      stroke-linejoin: round;
+    }
+
+    .sparkle-1 {
+      transform-origin: 75px 24px;
+      animation: finishSparkleTwinkle 2.2s infinite ease-in-out;
+    }
+
+    .sparkle-2 {
+      transform-origin: 20px 62px;
+      animation: finishSparkleTwinkle 2.2s infinite ease-in-out 0.75s;
+    }
+
+    .sparkle-3 {
+      transform-origin: 68px 66px;
+      animation: finishSparkleTwinkle 2.2s infinite ease-in-out 1.5s;
+    }
+
+    @keyframes finishSparkleTwinkle {
+      0%, 100% {
+        transform: scale(0.15) rotate(0deg);
+        opacity: 0;
+      }
+      45%, 55% {
+        transform: scale(1.15) rotate(45deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 3px #00b0ff) drop-shadow(0 0 7px rgba(0, 176, 255, 0.8));
+      }
+      85% {
+        transform: scale(0.2) rotate(90deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes finishShirtBreathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
     }
   `;
 }

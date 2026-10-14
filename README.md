@@ -130,7 +130,7 @@ La card traduce e mappa automaticamente i seguenti stati:
 | `rinse` / `rinsing` | **Risciacquo** | 🌊 Onde Turchesi Cristalline (Acqua Alta) |
 | `spin` / `spinning` | **Centrifuga** | 🌪️ Anelli Rotanti Alta Velocità |
 | `drying` / `dry` | **Asciugatura** | ♨️ Alone Termico e Linee di Calore |
-| `finish` / `finished` / `complete` / `end` | **Completato** | *Nessuna* |
+| `finish` / `finished` / `complete` / `end` | **Completato** | 👕 T-Shirt Bianca Satinata & Stelline Blu Animate |
 | `drumcleaning` / `drum_cleaning` | **Pulizia cestello** | ✨ Vortice Sanificazione & Scintille |
 
 ---
