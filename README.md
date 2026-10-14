@@ -9,7 +9,7 @@ Una custom card per **Home Assistant (Lovelace)** dal design ultra-minimale ed e
 Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutte le fasi del ciclo (lavaggio, centrifuga, asciugatura, avvio ritardato), palette monocromatica senza dominanti bluastre e supporto nativo per le Sezioni (Grid View) di Home Assistant.
 
 <p align="center">
-  <img src="docs/images/wash.jpg" alt="Lavaggio" width="250" />
+  <img src="docs/images/wash.png" alt="Lavaggio" width="250" />
   <img src="docs/images/spin.jpg" alt="Centrifuga" width="250" />
   <img src="docs/images/dry.jpg" alt="Asciugatura" width="250" />
 </p>
