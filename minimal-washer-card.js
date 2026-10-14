@@ -245,7 +245,8 @@ class MinimalWasherCard extends LitElement {
       delayFormatted = this._formatTime(rawTime);
     }
 
-    const displayTime = isDelayWash ? delayFormatted : this._formatTime(rawTime);
+    const isOffOrIdle = !isPowerOn || cycleLower === "idle" || cycleLower === "off" || cycleLower === "standby" || cycleLower === "none" || cycleLower === "unavailable" || cycleLower === "unknown";
+    const displayTime = isOffOrIdle ? "--:--" : (isDelayWash ? delayFormatted : this._formatTime(rawTime));
     const timeLabel = isDelayWash ? "Ritardo" : "Tempo";
 
     const isDarkMode = this.hass?.themes?.darkMode ?? (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -269,9 +270,7 @@ class MinimalWasherCard extends LitElement {
                   style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
               </svg>
               <div class="knob-body">
-                <div class="knob-inner">
-                  <div class="${ledClass}"></div>
-                </div>
+                <div class="${ledClass}"></div>
               </div>
             </div>
 
@@ -497,13 +496,10 @@ class MinimalWasherCard extends LitElement {
         width: 40px;
         height: 40px;
       }
-      .knob-inner {
-        width: 30px;
-        height: 30px;
-      }
       .knob-led {
-        width: 6px;
-        height: 6px;
+        width: 3px;
+        height: 3px;
+        top: 3px;
       }
       .drum-outer-frame {
         width: 96%;
@@ -612,8 +608,8 @@ class MinimalWasherCard extends LitElement {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: var(--mwc-knob-bg);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      background: radial-gradient(circle at 50% 50%, var(--mwc-knob-inner-bg) 0%, var(--mwc-knob-bg) 100%);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.1);
       border: 1px solid var(--mwc-knob-border);
       display: flex;
       align-items: center;
@@ -621,23 +617,13 @@ class MinimalWasherCard extends LitElement {
       position: relative;
     }
 
-    .knob-inner {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--mwc-knob-inner-bg);
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.15);
-      border: 1px solid var(--mwc-knob-border);
-      position: relative;
-    }
-
     .knob-led {
       position: absolute;
-      top: 3px;
+      top: 4px;
       left: 50%;
       transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
       z-index: 10;
       transition: all 0.3s ease;
@@ -649,18 +635,18 @@ class MinimalWasherCard extends LitElement {
     }
 
     .led-red {
-      background: #ff1744;
-      box-shadow: 0 0 8px #ff1744, 0 0 16px #ff1744;
+      background: #ff334b;
+      box-shadow: 0 0 4px #ff334b, 0 0 8px rgba(255, 51, 75, 0.6);
     }
 
     .led-green {
       background: #00e676;
-      box-shadow: 0 0 8px #00e676, 0 0 16px #00e676;
+      box-shadow: 0 0 4px #00e676, 0 0 8px #00e676;
     }
 
     .led-blue {
       background: #00b0ff;
-      box-shadow: 0 0 8px #00b0ff, 0 0 16px #00b0ff;
+      box-shadow: 0 0 4px #00b0ff, 0 0 8px #00b0ff;
     }
 
     .drum-area {
