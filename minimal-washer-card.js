@@ -274,8 +274,10 @@ class MinimalWasherCard extends LitElement {
       idle: "Off",
       off: "Off",
       standby: "Standby",
-      delaywash: "Lavaggio programmato",
-      delay_wash: "Lavaggio programmato",
+      delay: "Programmato",
+      delaywash: "Programmato",
+      delay_wash: "Programmato",
+      programmato: "Programmato",
       laundrysensing: "Rilevamento carico",
       laundry_sensing: "Rilevamento carico",
       weightsensing: "Rilevamento peso",
@@ -292,9 +294,12 @@ class MinimalWasherCard extends LitElement {
       finished: "Completato",
       complete: "Completato",
       end: "Completato",
-      drumcleaning: "Pulizia cestello",
-      drum_cleaning: "Pulizia cestello",
-      puliziacestello: "Pulizia cestello"
+      drumclean: "Pulizia Cestello",
+      drumcleaning: "Pulizia Cestello",
+      drum_cleaning: "Pulizia Cestello",
+      pulizia: "Pulizia Cestello",
+      puliziacestello: "Pulizia Cestello",
+      pulizia_cestello: "Pulizia Cestello"
     };
     return map[key] || map[raw.toLowerCase()] || raw;
   }
@@ -396,7 +401,9 @@ class MinimalWasherCard extends LitElement {
     } else if (isRinsing) {
       progressColor = "#00e5ff";
     } else if (isDrumCleaning) {
-      progressColor = "#2dd4bf";
+      progressColor = "#00b0ff";
+    } else if (isDelayWash) {
+      progressColor = "#9ca3af";
     }
 
     let delayFormatted = null;
@@ -1184,7 +1191,7 @@ class MinimalWasherCard extends LitElement {
 
     .delay-pulse-ring {
       fill: none;
-      stroke: var(--mwc-progress-fill, #ffffff);
+      stroke: #9ca3af;
       stroke-width: 2.2;
       stroke-dasharray: 45 140;
       stroke-linecap: round;
@@ -1194,17 +1201,17 @@ class MinimalWasherCard extends LitElement {
     }
 
     .delay-hand {
-      stroke: var(--mwc-progress-fill, #ffffff);
+      stroke: #d1d5db;
       stroke-width: 2;
       stroke-linecap: round;
       transform-origin: 50% 50%;
       animation: spinRun 12s infinite linear;
-      opacity: 0.6;
+      opacity: 0.85;
     }
 
     .delay-center-dot {
-      fill: var(--mwc-progress-fill, #ffffff);
-      opacity: 0.85;
+      fill: #9ca3af;
+      opacity: 0.95;
     }
 
     .drumclean-fx-wrapper {
@@ -1223,7 +1230,7 @@ class MinimalWasherCard extends LitElement {
       width: 70%;
       height: 70%;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 210, 180, 0.22) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 176, 255, 0.24) 0%, transparent 70%);
       animation: cleanGlow 2.8s infinite ease-in-out;
     }
 
@@ -1239,22 +1246,22 @@ class MinimalWasherCard extends LitElement {
 
     .clean-spray {
       fill: none;
-      stroke: var(--mwc-progress-fill, #00d2b4);
+      stroke: #00b0ff;
       stroke-width: 2.2;
       stroke-linecap: round;
       stroke-dasharray: 22 38;
       transform-origin: 50% 50%;
       animation: spinRun 2.2s infinite linear;
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
-    .spray-2 { animation-delay: -0.55s; opacity: 0.65; stroke-width: 1.8; }
-    .spray-3 { animation-delay: -1.1s; opacity: 0.8; stroke-width: 2.2; }
-    .spray-4 { animation-delay: -1.65s; opacity: 0.65; stroke-width: 1.8; }
+    .spray-2 { animation-delay: -0.55s; opacity: 0.7; stroke-width: 1.8; stroke: #00e5ff; }
+    .spray-3 { animation-delay: -1.1s; opacity: 0.85; stroke-width: 2.2; stroke: #00b0ff; }
+    .spray-4 { animation-delay: -1.65s; opacity: 0.7; stroke-width: 1.8; stroke: #00e5ff; }
 
     .clean-sparkle {
-      fill: var(--mwc-progress-fill, #ffffff);
-      opacity: 0.85;
+      fill: #00e5ff;
+      opacity: 0.9;
       animation: sparklePulse 2s infinite ease-in-out;
       transform-origin: 50% 50%;
     }
@@ -1270,8 +1277,8 @@ class MinimalWasherCard extends LitElement {
     }
 
     .clean-star {
-      fill: var(--mwc-progress-fill, #ffffff);
-      opacity: 0.9;
+      fill: #00b0ff;
+      opacity: 0.95;
       transform-origin: 50% 50%;
       animation: starRotate 4.5s infinite ease-in-out;
     }

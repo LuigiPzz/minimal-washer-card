@@ -126,7 +126,7 @@ La card traduce e mappa automaticamente i seguenti stati:
 | Valore Grezzo del Sensore | Testo Visualizzato sulla Card | Animazione Oblò Attiva |
 | :--- | :--- | :--- |
 | `idle` / `off` / `standby` | **Off** | *Nessuna* |
-| `delaywash` / `delay_wash` / `delay` | **Lavaggio programmato** | 🕒 Timer Vettoriale Orbitante con Countdown |
+| `delaywash` / `delay_wash` / `delay` | **Programmato** | 🕒 Timer Vettoriale Orbitante con Countdown |
 | `laundrysensing` | **Rilevamento carico** | ⚖️ Scansione Carico & Oscillazione Cestello |
 | `weight_sensing` / `weightsensing` | **Rilevamento peso** | ⚖️ Scansione Carico & Oscillazione Cestello |
 | `wash` / `washing` | **Lavaggio** | 🌊 Onde d'Acqua Fluide (Livello 52%) |
@@ -134,7 +134,7 @@ La card traduce e mappa automaticamente i seguenti stati:
 | `spin` / `spinning` | **Centrifuga** | 🌪️ Anelli Rotanti Alta Velocità |
 | `drying` / `dry` | **Asciugatura** | ♨️ Alone Termico e Linee di Calore |
 | `finish` / `finished` / `complete` / `end` | **Completato** | 👕 T-Shirt Bianca Sagomata & Stelline Blu Scintillanti |
-| `drumcleaning` / `drum_cleaning` | **Pulizia cestello** | ✨ Vortice Sanificazione & Scintille |
+| `drumcleaning` / `drum_cleaning` / `drumclean` | **Pulizia Cestello** | ✨ Vortice Sanificazione & Scintille |
 
 ---
 
