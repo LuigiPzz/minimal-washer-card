@@ -232,7 +232,8 @@ class MinimalWasherCard extends LitElement {
     const isSensing = cycleLower.includes("sensing") || cycleLower.includes("peso") || cycleLower.includes("carico") || cycleLower.includes("weight") || cycleLower.includes("laundry");
     const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("programmato") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
     const isDrumCleaning = cycleLower.includes("drumclean") || cycleLower.includes("pulizia") || cycleLower.includes("clean");
-    const isWashing = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("wash") || cycleLower.includes("lavaggio") || cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
+    const isRinsing = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
+    const isWashing = !isDelayWash && !isDrumCleaning && !isSensing && !isRinsing && (cycleLower.includes("wash") || cycleLower.includes("lavaggio"));
     const isDrying = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("drying") || cycleLower.includes("asciugatura") || (cycleLower.includes("dry") && !cycleLower.includes("laundry")));
     const isSpinning = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
 
@@ -290,6 +291,20 @@ class MinimalWasherCard extends LitElement {
                   </svg>
                   <svg class="wave-svg wave-front" viewBox="0 0 800 120" preserveAspectRatio="none">
                     <path d="M 0 45 Q 100 15 200 45 T 400 45 T 600 45 T 800 45 L 800 120 L 0 120 Z"></path>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="liquid-wrapper" style="display: ${isRinsing ? "block" : "none"};">
+                <div class="wave-container rinse-wave-container">
+                  <svg class="wave-svg rinse-wave-1" viewBox="0 0 800 120" preserveAspectRatio="none">
+                    <path d="M 0 30 Q 100 55 200 30 T 400 30 T 600 30 T 800 30 L 800 120 L 0 120 Z"></path>
+                  </svg>
+                  <svg class="wave-svg rinse-wave-2" viewBox="0 0 800 120" preserveAspectRatio="none">
+                    <path d="M 0 40 Q 100 15 200 40 T 400 40 T 600 40 T 800 40 L 800 120 L 0 120 Z"></path>
+                  </svg>
+                  <svg class="wave-svg rinse-wave-3" viewBox="0 0 800 120" preserveAspectRatio="none">
+                    <path d="M 0 50 Q 80 30 160 50 T 320 50 T 480 50 T 640 50 T 800 50 L 800 120 L 0 120 Z"></path>
                   </svg>
                 </div>
               </div>
@@ -724,6 +739,28 @@ class MinimalWasherCard extends LitElement {
     @keyframes waveFlow {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
+    }
+
+    .rinse-wave-container {
+      height: 65%;
+    }
+
+    .rinse-wave-1 {
+      fill: #00e5ff;
+      opacity: 0.35;
+      animation: waveFlow 3.2s linear infinite reverse;
+    }
+
+    .rinse-wave-2 {
+      fill: #00e5ff;
+      opacity: 0.60;
+      animation: waveFlow 2.1s linear infinite;
+    }
+
+    .rinse-wave-3 {
+      fill: #00e5ff;
+      opacity: 0.88;
+      animation: waveFlow 1.6s linear infinite reverse;
     }
 
     .dry-fx-wrapper {
