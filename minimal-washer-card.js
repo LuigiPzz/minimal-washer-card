@@ -76,6 +76,12 @@ class MinimalWasherCardEditor extends LitElement {
           <button type="button" class="test-btn ${currentTestMode === '' ? 'active' : ''}" @click=${() => this._setTestMode("")}>
             📡 Reale (Sensori)
           </button>
+          <button type="button" class="test-btn ${currentTestMode === 'load_sensing' ? 'active' : ''}" @click=${() => this._setTestMode("load_sensing")}>
+            🔍 Rilevamento Carico
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'weight_sensing' ? 'active' : ''}" @click=${() => this._setTestMode("weight_sensing")}>
+            ⚖️ Rilevamento Peso
+          </button>
           <button type="button" class="test-btn ${currentTestMode === 'wash' ? 'active' : ''}" @click=${() => this._setTestMode("wash")}>
             🌊 Lavaggio
           </button>
@@ -96,12 +102,6 @@ class MinimalWasherCardEditor extends LitElement {
           </button>
           <button type="button" class="test-btn ${currentTestMode === 'clean' ? 'active' : ''}" @click=${() => this._setTestMode("clean")}>
             ✨ Pulizia Cestello
-          </button>
-          <button type="button" class="test-btn ${currentTestMode === 'load_sensing' ? 'active' : ''}" @click=${() => this._setTestMode("load_sensing")}>
-            🔍 Rilevamento Carico
-          </button>
-          <button type="button" class="test-btn ${currentTestMode === 'weight_sensing' ? 'active' : ''}" @click=${() => this._setTestMode("weight_sensing")}>
-            ⚖️ Rilevamento Peso
           </button>
         </div>
       </div>
@@ -342,22 +342,30 @@ class MinimalWasherCard extends LitElement {
     if (this._config.test_mode) {
       const tm = this._config.test_mode;
       isPowerOn = true;
-      if (tm === "wash") {
+      if (tm === "load_sensing" || tm === "sensing") {
+        rawCycle = "laundrysensing";
+        rawTime = "--:--";
+        progress = 5;
+      } else if (tm === "weight_sensing") {
+        rawCycle = "weight_sensing";
+        rawTime = "--:--";
+        progress = 12;
+      } else if (tm === "wash") {
         rawCycle = "wash";
         rawTime = "01:01";
-        progress = 45;
+        progress = 35;
       } else if (tm === "rinse") {
         rawCycle = "rinse";
         rawTime = "00:38";
-        progress = 70;
+        progress = 65;
       } else if (tm === "spin") {
         rawCycle = "spin";
         rawTime = "14:00";
-        progress = 90;
+        progress = 85;
       } else if (tm === "drying") {
         rawCycle = "drying";
         rawTime = "02:00";
-        progress = 55;
+        progress = 92;
         isSmartOn = true;
       } else if (tm === "finish") {
         rawCycle = "finish";
@@ -371,14 +379,6 @@ class MinimalWasherCard extends LitElement {
         rawCycle = "drumclean";
         rawTime = "01:15";
         progress = 50;
-      } else if (tm === "load_sensing" || tm === "sensing") {
-        rawCycle = "laundrysensing";
-        rawTime = "--:--";
-        progress = 0;
-      } else if (tm === "weight_sensing") {
-        rawCycle = "weight_sensing";
-        rawTime = "--:--";
-        progress = 0;
       }
     }
 
