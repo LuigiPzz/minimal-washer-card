@@ -266,8 +266,7 @@ class MinimalWasherCard extends LitElement {
                 <circle class="knob-progress-bg" cx="26" cy="26" r="23" />
                 <circle class="knob-progress-arc" cx="26" cy="26" r="23"
                   stroke-dasharray="${144.51}"
-                  stroke-dashoffset="${144.51 - (144.51 * progress / 100)}"
-                  style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
+                  stroke-dashoffset="${144.51 - (144.51 * progress / 100)}" />
               </svg>
               <div class="knob-body">
                 <div class="${ledClass}"></div>
@@ -600,8 +599,6 @@ class MinimalWasherCard extends LitElement {
       stroke-width: 2.5;
       stroke-linecap: round;
       transition: stroke-dashoffset 0.6s ease;
-      filter: drop-shadow(0 0 3px rgba(0, 176, 255, var(--progress-glow, 0)))
-             drop-shadow(0 0 6px rgba(0, 176, 255, var(--progress-glow, 0)));
     }
 
     .knob-body {
