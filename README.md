@@ -6,7 +6,7 @@
 
 Una custom card per **Home Assistant (Lovelace)** dal design ultra-minimale ed elegante ispirato agli elettrodomestici contemporanei di alta gamma.
 
-Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutte le fasi del ciclo (lavaggio, centrifuga, asciugatura, avvio ritardato), palette monocromatica senza dominanti bluastre e supporto nativo per le Sezioni (Grid View) di Home Assistant.
+Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutte le fasi del ciclo (lavaggio, risciacquo, centrifuga, asciugatura, ciclo completato, avvio ritardato), palette monocromatica senza dominanti bluastre e supporto nativo per le Sezioni (Grid View) di Home Assistant.
 
 <p align="center">
   <img src="docs/images/wash.png" alt="Lavaggio" width="250" />
@@ -26,13 +26,16 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
   - Blocco intelligente della larghezza minima a **6 colonne** (50% di larghezza sezione) con altezza automatica.
   - Layout adattivo con **Container Queries** per scaling fluido su qualsiasi display o smartphone.
 - 🌊 **Animazioni Dinamiche nell'Oblò (Drum)**:
-  - 🌊 **Lavaggio / Risciacquo**: Onde d'acqua fluide a doppia frequenza.
+  - 🌊 **Lavaggio**: Onde d'acqua fluide a doppia frequenza con livello al 52%.
+  - 🌧️ **Risciacquo**: Cascata di gocce a pioggia asincrona su 4 colonne e onde turchesi limpide (#079392) sul fondo.
   - 🌪️ **Centrifuga**: Anelli rotanti ultra-sottili ad altissima velocità.
   - ♨️ **Asciugatura**: Alone termico pulsante e linee di calore dinamiche.
+  - 👕 **Ciclo Completato**: T-shirt bianca sagomata con 3 stelline blu scintillanti a ciclo continuo.
   - 🕒 **Lavaggio Programmato / Partenza Ritardata**: Quadrante timer orbitante vettoriale con indicazione in grande del countdown.
   - ✨ **Pulizia Cestello**: Vortice di sanificazione con scintille.
   - ⚖️ **Rilevamento Carico / Peso**: Scansione radar e oscillazione cestello.
 - 🇮🇹 **Traduzione Automatica degli Stati del Ciclo**:
+  - Converte automaticamente gli stati in lingua inglese dei sensori (es. `idle`, `wash`, `rinse`, `spin`, `dry`, `finish`, `laundrysensing`, ecc.) in descrizioni in italiano chiare e leggibili su display multilinea.
 - ⏱️ **Gestione Ore di Ritardo & Conversione `HH:MM`**:
   - Converte automaticamente valori numerici in ore decimali (`1.5` ➔ `01:30`) in ore e minuti formattati.
 - 💡 **Manopola Centrale con Micro-LED di Stato a ore 12**:
@@ -126,11 +129,11 @@ La card traduce e mappa automaticamente i seguenti stati:
 | `delaywash` / `delay_wash` / `delay` | **Lavaggio programmato** | 🕒 Timer Vettoriale Orbitante con Countdown |
 | `laundrysensing` | **Rilevamento carico** | ⚖️ Scansione Carico & Oscillazione Cestello |
 | `weight_sensing` / `weightsensing` | **Rilevamento peso** | ⚖️ Scansione Carico & Oscillazione Cestello |
-| `wash` / `washing` | **Lavaggio** | 🌊 Onde d'Acqua Fluide |
-| `rinse` / `rinsing` | **Risciacquo** | 🌊 Onde Turchesi Cristalline (Acqua Alta) |
+| `wash` / `washing` | **Lavaggio** | 🌊 Onde d'Acqua Fluide (Livello 52%) |
+| `rinse` / `rinsing` | **Risciacquo** | 🌧️ Cascata di Pioggia a 4 Colonne & Onde Turchesi Limpide |
 | `spin` / `spinning` | **Centrifuga** | 🌪️ Anelli Rotanti Alta Velocità |
 | `drying` / `dry` | **Asciugatura** | ♨️ Alone Termico e Linee di Calore |
-| `finish` / `finished` / `complete` / `end` | **Completato** | 👕 T-Shirt Bianca Satinata & Stelline Blu Animate |
+| `finish` / `finished` / `complete` / `end` | **Completato** | 👕 T-Shirt Bianca Sagomata & Stelline Blu Scintillanti |
 | `drumcleaning` / `drum_cleaning` | **Pulizia cestello** | ✨ Vortice Sanificazione & Scintille |
 
 ---
