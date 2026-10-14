@@ -97,8 +97,11 @@ class MinimalWasherCardEditor extends LitElement {
           <button type="button" class="test-btn ${currentTestMode === 'clean' ? 'active' : ''}" @click=${() => this._setTestMode("clean")}>
             ✨ Pulizia Cestello
           </button>
-          <button type="button" class="test-btn ${currentTestMode === 'sensing' ? 'active' : ''}" @click=${() => this._setTestMode("sensing")}>
-            ⚖️ Rilevamento
+          <button type="button" class="test-btn ${currentTestMode === 'load_sensing' ? 'active' : ''}" @click=${() => this._setTestMode("load_sensing")}>
+            🔍 Rilevamento Carico
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'weight_sensing' ? 'active' : ''}" @click=${() => this._setTestMode("weight_sensing")}>
+            ⚖️ Rilevamento Peso
           </button>
         </div>
       </div>
@@ -368,8 +371,12 @@ class MinimalWasherCard extends LitElement {
         rawCycle = "drumclean";
         rawTime = "01:15";
         progress = 50;
-      } else if (tm === "sensing") {
-        rawCycle = "sensing";
+      } else if (tm === "load_sensing" || tm === "sensing") {
+        rawCycle = "laundrysensing";
+        rawTime = "--:--";
+        progress = 0;
+      } else if (tm === "weight_sensing") {
+        rawCycle = "weight_sensing";
         rawTime = "--:--";
         progress = 0;
       }
@@ -383,7 +390,9 @@ class MinimalWasherCard extends LitElement {
     }
 
     const cycleLower = String(rawCycle).toLowerCase();
-    const isSensing = cycleLower.includes("sensing") || cycleLower.includes("peso") || cycleLower.includes("carico") || cycleLower.includes("weight") || cycleLower.includes("laundry");
+    const isWeightSensing = cycleLower.includes("weight") || cycleLower.includes("peso");
+    const isLoadSensing = !isWeightSensing && (cycleLower.includes("sensing") || cycleLower.includes("carico") || cycleLower.includes("laundry"));
+    const isSensing = isLoadSensing || isWeightSensing;
     const isDelayWash = cycleLower.includes("delay") || cycleLower.includes("ritardo") || cycleLower.includes("programmato") || cycleLower.includes("posticipat") || cycleLower.includes("partenza");
     const isDrumCleaning = cycleLower.includes("drumclean") || cycleLower.includes("pulizia") || cycleLower.includes("clean");
     const isRinsing = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("rinse") || cycleLower.includes("risciacquo"));
@@ -399,11 +408,15 @@ class MinimalWasherCard extends LitElement {
     } else if (isDrying) {
       progressColor = "#ff9800";
     } else if (isRinsing) {
-      progressColor = "#00e5ff";
+      progressColor = "#079392";
+    } else if (isSpinning) {
+      progressColor = "#ffffff";
     } else if (isDrumCleaning) {
       progressColor = "#00b0ff";
     } else if (isDelayWash) {
       progressColor = "#9ca3af";
+    } else if (isLoadSensing || isWeightSensing) {
+      progressColor = "#38bdf8";
     }
 
     let delayFormatted = null;
@@ -538,16 +551,52 @@ class MinimalWasherCard extends LitElement {
                 </svg>
               </div>
 
-              <div class="sensing-fx-wrapper" style="display: ${isSensing ? "flex" : "none"};">
-                <div class="sensing-radar">
-                  <svg class="sensing-svg" viewBox="0 0 100 100">
-                    <circle class="sensing-ring ring-1" cx="50" cy="50" r="38"></circle>
-                    <circle class="sensing-ring ring-2" cx="50" cy="50" r="26"></circle>
-                    <circle class="sensing-ring ring-3" cx="50" cy="50" r="14"></circle>
-                    <line class="sensing-needle" x1="50" y1="50" x2="50" y2="18"></line>
-                    <circle class="sensing-hub" cx="50" cy="50" r="3.2"></circle>
-                  </svg>
-                </div>
+              <div class="sensing-load-wrapper" style="display: ${isLoadSensing ? "flex" : "none"};">
+                <svg class="load-scanner-svg" viewBox="0 0 100 100">
+                  <circle class="scan-grid-circle" cx="50" cy="50" r="38"></circle>
+                  <circle class="scan-grid-circle" cx="50" cy="50" r="24"></circle>
+                  <circle class="scan-grid-circle" cx="50" cy="50" r="12"></circle>
+                  <g class="scan-beam">
+                    <path d="M 50 50 L 50 12 A 38 38 0 0 1 78 24 Z" fill="url(#loadBeamGrad)" opacity="0.35" />
+                  </g>
+                  <circle class="laundry-node node-1" cx="38" cy="42" r="3.5" />
+                  <circle class="laundry-node node-2" cx="62" cy="46" r="4.2" />
+                  <circle class="laundry-node node-3" cx="48" cy="65" r="3.0" />
+                  <g class="load-glass-group" transform-origin="50 50">
+                    <line class="mag-target-cross" x1="42" y1="46" x2="54" y2="46" />
+                    <line class="mag-target-cross" x1="48" y1="40" x2="48" y2="52" />
+                    <circle class="mag-lens-rim" cx="48" cy="46" r="16" />
+                    <path class="mag-glare" d="M 38 38 A 12 12 0 0 1 54 36" />
+                    <line class="mag-handle" x1="60" y1="58" x2="74" y2="72" />
+                    <circle cx="74" cy="72" r="2.2" fill="#94a3b8" />
+                  </g>
+                  <defs>
+                    <linearGradient id="loadBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+                      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
+              <div class="sensing-weight-wrapper" style="display: ${isWeightSensing ? "flex" : "none"};">
+                <svg class="weight-svg" viewBox="0 0 100 100">
+                  <line class="scale-base-glow" x1="24" y1="78" x2="76" y2="78" />
+                  <line class="scale-base" x1="22" y1="78" x2="78" y2="78" />
+                  <g transform-origin="50 78">
+                    <line class="pressure-line pl-1" x1="32" y1="84" x2="68" y2="84" />
+                    <line class="pressure-line pl-2" x1="38" y1="88" x2="62" y2="88" />
+                    <line class="pressure-line pl-3" x1="44" y1="92" x2="56" y2="92" />
+                  </g>
+                  <g class="kettlebell-group">
+                    <path class="weight-handle" d="M 38 40 C 38 29, 62 29, 62 40" />
+                    <line x1="42" y1="40" x2="58" y2="40" stroke="#64748b" stroke-width="1.8" />
+                    <path class="weight-body" d="M 35 41 L 65 41 L 70 73 C 70 76, 30 76, 30 73 Z" />
+                    <line x1="33" y1="47" x2="67" y2="47" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
+                    <line x1="32" y1="70" x2="68" y2="70" stroke="rgba(255,255,255,0.18)" stroke-width="1" />
+                    <text class="weight-text" x="50" y="58">KG</text>
+                  </g>
+                </svg>
               </div>
 
               <div class="finish-fx-wrapper" style="display: ${isFinished ? "flex" : "none"};">
@@ -1289,7 +1338,8 @@ class MinimalWasherCard extends LitElement {
       100% { transform: rotate(360deg) scale(0.85); opacity: 0.55; }
     }
 
-    .sensing-fx-wrapper {
+    /* Rilevamento Carico (Scanner / Lente) */
+    .sensing-load-wrapper {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -1300,66 +1350,170 @@ class MinimalWasherCard extends LitElement {
       z-index: 2;
     }
 
-    .sensing-radar {
-      width: 80%;
-      height: 80%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .load-scanner-svg {
+      width: 78%;
+      height: 78%;
+      overflow: visible;
     }
 
-    .sensing-svg {
+    .scan-grid-circle {
+      fill: none;
+      stroke: rgba(0, 176, 255, 0.12);
+      stroke-width: 1;
+      stroke-dasharray: 2 4;
+    }
+
+    .scan-beam {
+      transform-origin: 50px 50px;
+      animation: scanBeamSweep 3s infinite linear;
+    }
+
+    @keyframes scanBeamSweep {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .load-glass-group {
+      animation: magLensFloat 3.2s infinite ease-in-out;
+    }
+
+    @keyframes magLensFloat {
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      25% { transform: translate(-5px, -3px) rotate(-6deg); }
+      50% { transform: translate(4px, 2px) rotate(4deg); }
+      75% { transform: translate(-3px, 4px) rotate(-3deg); }
+      100% { transform: translate(0px, 0px) rotate(0deg); }
+    }
+
+    .mag-lens-rim {
+      fill: rgba(0, 176, 255, 0.08);
+      stroke: #38bdf8;
+      stroke-width: 2.2;
+      filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.5));
+    }
+
+    .mag-handle {
+      stroke: #94a3b8;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+    }
+
+    .mag-glare {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.65);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+    }
+
+    .mag-target-cross {
+      stroke: rgba(56, 189, 248, 0.6);
+      stroke-width: 1.2;
+      stroke-dasharray: 2 2;
+      animation: targetPulse 1.6s infinite ease-in-out;
+    }
+
+    @keyframes targetPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.9; }
+    }
+
+    .laundry-node {
+      fill: #38bdf8;
+      animation: laundryNodePulse 2.4s infinite ease-in-out;
+      transform-origin: 50% 50%;
+    }
+    .node-1 { animation-delay: 0.2s; }
+    .node-2 { animation-delay: 0.9s; }
+    .node-3 { animation-delay: 1.6s; }
+
+    @keyframes laundryNodePulse {
+      0%, 100% { transform: scale(0.6); opacity: 0.2; }
+      50% { transform: scale(1.3); opacity: 0.9; filter: drop-shadow(0 0 3px #38bdf8); }
+    }
+
+    /* Rilevamento Peso (Peso KG con molleggio e pressione) */
+    .sensing-weight-wrapper {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
     }
 
-    .sensing-ring {
-      fill: none;
-      stroke: var(--mwc-progress-fill, #ffffff);
-      stroke-width: 1.5;
-      opacity: 0.25;
-      transform-origin: 50% 50%;
+    .weight-svg {
+      width: 76%;
+      height: 76%;
+      overflow: visible;
     }
 
-    .ring-1 {
-      animation: sensingPulse 2.4s infinite ease-in-out;
-      stroke-dasharray: 60 40;
-    }
-
-    .ring-2 {
-      animation: sensingPulse 2.4s infinite ease-in-out 0.6s;
-      stroke-dasharray: 40 30;
-    }
-
-    .ring-3 {
-      animation: sensingPulse 2.4s infinite ease-in-out 1.2s;
-    }
-
-    @keyframes sensingPulse {
-      0%, 100% { transform: scale(0.92); opacity: 0.2; }
-      50% { transform: scale(1.06); opacity: 0.75; }
-    }
-
-    .sensing-needle {
-      stroke: var(--mwc-progress-fill, #ffffff);
-      stroke-width: 2.2;
+    .scale-base {
+      stroke: rgba(255, 255, 255, 0.15);
+      stroke-width: 2;
       stroke-linecap: round;
-      transform-origin: 50% 50%;
-      animation: sensingTumble 2.6s infinite ease-in-out;
     }
 
-    .sensing-hub {
-      fill: var(--mwc-progress-fill, #ffffff);
-      opacity: 0.9;
+    .scale-base-glow {
+      stroke: rgba(0, 229, 255, 0.2);
+      stroke-width: 4;
+      stroke-linecap: round;
     }
 
-    @keyframes sensingTumble {
-      0% { transform: rotate(0deg); }
-      25% { transform: rotate(40deg); }
-      45% { transform: rotate(40deg); }
-      70% { transform: rotate(-40deg); }
-      85% { transform: rotate(-40deg); }
-      100% { transform: rotate(0deg); }
+    .kettlebell-group {
+      transform-origin: 50px 70px;
+      animation: weightWeighingBounce 2.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes weightWeighingBounce {
+      0% { transform: translateY(0px) scale(1, 1); }
+      20% { transform: translateY(7px) scale(1.06, 0.94); }
+      35% { transform: translateY(-4px) scale(0.97, 1.03); }
+      50% { transform: translateY(3px) scale(1.02, 0.98); }
+      65% { transform: translateY(-1px) scale(0.99, 1.01); }
+      80%, 100% { transform: translateY(0px) scale(1, 1); }
+    }
+
+    .weight-handle {
+      fill: none;
+      stroke: #cbd5e1;
+      stroke-width: 2.8;
+      stroke-linecap: round;
+    }
+
+    .weight-body {
+      fill: rgba(0, 176, 255, 0.12);
+      stroke: #38bdf8;
+      stroke-width: 2.2;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
+    }
+
+    .weight-text {
+      font-size: 11px;
+      font-weight: 800;
+      font-family: -apple-system, sans-serif;
+      fill: #ffffff;
+      text-anchor: middle;
+      dominant-baseline: central;
+      letter-spacing: 0.05em;
+    }
+
+    .pressure-line {
+      stroke: #38bdf8;
+      stroke-linecap: round;
+      animation: pressurePulse 2.8s infinite ease-out;
+    }
+    .pl-1 { stroke-width: 2; animation-delay: 0.1s; }
+    .pl-2 { stroke-width: 1.5; animation-delay: 0.25s; }
+    .pl-3 { stroke-width: 1; animation-delay: 0.4s; }
+
+    @keyframes pressurePulse {
+      0%, 10% { opacity: 0; transform: scaleX(0.4); }
+      25% { opacity: 0.9; transform: scaleX(1.1); }
+      45% { opacity: 0.4; transform: scaleX(0.9); }
+      70%, 100% { opacity: 0; transform: scaleX(0.5); }
     }
 
     .finish-fx-wrapper {

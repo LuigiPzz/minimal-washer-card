@@ -31,11 +31,14 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
   - 🌪️ **Centrifuga**: Anelli rotanti ultra-sottili ad altissima velocità.
   - ♨️ **Asciugatura**: Alone termico pulsante e linee di calore dinamiche.
   - 👕 **Ciclo Completato**: T-shirt bianca sagomata con 3 stelline blu scintillanti a ciclo continuo.
-  - 🕒 **Lavaggio Programmato / Partenza Ritardata**: Quadrante timer orbitante vettoriale con indicazione in grande del countdown.
-  - ✨ **Pulizia Cestello**: Vortice di sanificazione con scintille.
-  - ⚖️ **Rilevamento Carico / Peso**: Scansione radar e oscillazione cestello.
+  - 🕒 **Lavaggio Programmato / Partenza Ritardata**: Quadrante timer orbitante vettoriale monocromatico con indicazione in grande del countdown.
+  - ✨ **Pulizia Cestello**: Vortice di sanificazione con scintille e stella splendente.
+  - 🔍 **Rilevamento Carico (`laundrysensing`)**: Lente d'ingrandimento fluttuante con mirino di puntamento a croce, fascio radar rotante e rilevamento nodi di carico.
+  - ⚖️ **Rilevamento Peso (`weight_sensing`)**: Peso tecnico da calibratura con incisione "KG", molleggio dinamico di pesatura e onde di compressione su pedana.
+- ⭕ **Anello di Avanzamento Dinamico & Colorato per Fase**:
+  - Corona vettoriale nitida che avanza in senso orario in base alla percentuale del ciclo (`progress_entity`), con colore coordinato alla fase attiva (blu per lavaggio, turchese per risciacquo, bianco per centrifuga, ambra per asciugatura, verde per completato, grigio per programmato, celeste per rilevamenti e pulizia).
 - 🇮🇹 **Traduzione Automatica degli Stati del Ciclo**:
-  - Converte automaticamente gli stati in lingua inglese dei sensori (es. `idle`, `wash`, `rinse`, `spin`, `dry`, `finish`, `laundrysensing`, ecc.) in descrizioni in italiano chiare e leggibili su display multilinea.
+  - Converte automaticamente gli stati in lingua inglese dei sensori (es. `idle`, `wash`, `rinse`, `spin`, `dry`, `finish`, `laundrysensing`, `weight_sensing`, `delay`, `drumclean`, ecc.) in descrizioni in italiano chiare e leggibili su display multilinea.
 - ⏱️ **Gestione Ore di Ritardo & Conversione `HH:MM`**:
   - Converte automaticamente valori numerici in ore decimali (`1.5` ➔ `01:30`) in ore e minuti formattati.
 - 💡 **Manopola Centrale con Micro-LED di Stato a ore 12**:
