@@ -33,13 +33,14 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
   - ✨ **Pulizia Cestello**: Vortice di sanificazione con scintille.
   - ⚖️ **Rilevamento Carico / Peso**: Scansione radar e oscillazione cestello.
 - 🇮🇹 **Traduzione Automatica degli Stati del Ciclo**:
-  - Converte automaticamente gli stati in inglese dei sensori (es. `idle`, `delaywash`, `laundrysensing`, `wash`, `spinning`, ecc.) in descrizioni in italiano chiare e leggibili su display multilinea.
 - ⏱️ **Gestione Ore di Ritardo & Conversione `HH:MM`**:
   - Converte automaticamente valori numerici in ore decimali (`1.5` ➔ `01:30`) in ore e minuti formattati.
-- 💡 **Manopola Centrale con Indicatori LED**:
-  - 🟢 **LED Verde**: Elettrodomestico acceso.
-  - 🔵 **LED Blu**: Connessione / Smart Control Wi-Fi attivo.
-  - ⚫ **LED Spento**: Elettrodomestico spento.
+- 💡 **Manopola Centrale con Micro-LED di Stato a ore 12**:
+  - 🔴 **LED Rosso**: Elettrodomestico spento o in standby (`power_entity` = off).
+  - 🟢 **LED Verde**: Elettrodomestico acceso in funzionamento standard (`power_entity` = on).
+  - 🔵 **LED Blu**: Connessione / Smart Control Wi-Fi attivo (`smart_control_entity` = on).
+- ⭕ **Anello di Avanzamento Circolare**:
+  - Corona vettoriale nitida e aderente alla manopola che avanza in senso orario in base alla percentuale di completamento del ciclo (`progress_entity`).
 - 🛠️ **Configuratore Visuale Integrato**:
   - Mappatura completa delle entità tramite editor UI standard (`ha-form`), senza necessità di modificare file YAML.
 
@@ -108,8 +109,8 @@ delay_entity: number.lavatrice_ritardo_di_avvio
 | :--- | :--- | :--- | :--- |
 | `cycle_entity` | `entity_id` | **Sì** | Sensore con lo stato o fase corrente del ciclo della lavatrice. |
 | `time_entity` | `entity_id` | **Sì** | Sensore del tempo rimanente o durata residua (es. `00:30`, `1h 15m`). |
-| `progress_entity` | `entity_id` | No | Sensore numerico percentuale (0-100) per la barra di avanzamento. |
-| `power_entity` | `entity_id` | No | Entità (`binary_sensor`, `switch`, `sensor`) per lo stato di accensione (LED verde). |
+| `progress_entity` | `entity_id` | No | Sensore numerico percentuale (0-100) per la ghiera di avanzamento attorno alla manopola. |
+| `power_entity` | `entity_id` | No | Entità (`binary_sensor`, `switch`, `sensor`) per lo stato di alimentazione (LED verde se acceso, LED rosso se spento/standby). |
 | `smart_control_entity` | `entity_id` | No | Entità (`binary_sensor`, `switch`, `sensor`) per lo stato Smart Control / Wi-Fi (LED blu). |
 | `delay_entity` | `entity_id` | No | Sensore o `number` con le ore di ritardo (es. `number.lavatrice_ritardo_di_avvio` in formato decimale `x.xxxx` o orario), convertito automaticamente in formato `HH:MM`. |
 
