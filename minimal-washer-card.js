@@ -268,10 +268,9 @@ class MinimalWasherCard extends LitElement {
                   stroke-dashoffset="${160.22 - (160.22 * progress / 100)}"
                   style="--progress-glow: ${progress > 0 ? '1' : '0'};" />
               </svg>
-              <div class="${ledClass}"></div>
               <div class="knob-body">
                 <div class="knob-inner">
-                  <div class="knob-indicator"></div>
+                  <div class="${ledClass}"></div>
                 </div>
               </div>
             </div>
@@ -632,24 +631,13 @@ class MinimalWasherCard extends LitElement {
       position: relative;
     }
 
-    .knob-indicator {
+    .knob-led {
       position: absolute;
       top: 3px;
       left: 50%;
       transform: translateX(-50%);
-      width: 2px;
-      height: 7px;
-      background: var(--mwc-knob-indicator);
-      border-radius: 1px;
-    }
-
-    .knob-led {
-      position: absolute;
-      top: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       z-index: 10;
       transition: all 0.3s ease;
