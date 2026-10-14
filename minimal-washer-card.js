@@ -56,6 +56,8 @@ class MinimalWasherCardEditor extends LitElement {
   render() {
     if (!this.hass || !this._config) return html``;
 
+    const currentTestMode = this._config.test_mode || "";
+
     return html`
       <ha-form
         .hass=${this.hass}
@@ -64,7 +66,58 @@ class MinimalWasherCardEditor extends LitElement {
         .computeLabel=${s => s.label || s.name}
         @value-changed=${this._valueChanged}
       ></ha-form>
+
+      <div class="test-panel">
+        <div class="test-header">
+          <div class="test-title">🧪 Modalità Test / Anteprima Stati</div>
+          <div class="test-desc">Seleziona uno stato per visualizzare e testare subito le animazioni nell'anteprima:</div>
+        </div>
+        <div class="test-grid">
+          <button type="button" class="test-btn ${currentTestMode === '' ? 'active' : ''}" @click=${() => this._setTestMode("")}>
+            📡 Reale (Sensori)
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'wash' ? 'active' : ''}" @click=${() => this._setTestMode("wash")}>
+            🌊 Lavaggio
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'rinse' ? 'active' : ''}" @click=${() => this._setTestMode("rinse")}>
+            🌧️ Risciacquo
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'spin' ? 'active' : ''}" @click=${() => this._setTestMode("spin")}>
+            🌪️ Centrifuga
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'drying' ? 'active' : ''}" @click=${() => this._setTestMode("drying")}>
+            ♨️ Asciugatura
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'finish' ? 'active' : ''}" @click=${() => this._setTestMode("finish")}>
+            👕 Completato
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'delay' ? 'active' : ''}" @click=${() => this._setTestMode("delay")}>
+            🕒 Programmato
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'clean' ? 'active' : ''}" @click=${() => this._setTestMode("clean")}>
+            ✨ Pulizia Cestello
+          </button>
+          <button type="button" class="test-btn ${currentTestMode === 'sensing' ? 'active' : ''}" @click=${() => this._setTestMode("sensing")}>
+            ⚖️ Rilevamento
+          </button>
+        </div>
+      </div>
     `;
+  }
+
+  _setTestMode(val) {
+    const newConfig = { ...this._config };
+    if (val) {
+      newConfig.test_mode = val;
+    } else {
+      delete newConfig.test_mode;
+    }
+    const event = new CustomEvent("config-changed", {
+      detail: { config: newConfig },
+      bubbles: true,
+      composed: true
+    });
+    this.dispatchEvent(event);
   }
 
   _valueChanged(ev) {
@@ -79,7 +132,62 @@ class MinimalWasherCardEditor extends LitElement {
   static styles = css`
     ha-form {
       display: block;
+      margin-bottom: 20px;
+    }
+    .test-panel {
+      background: var(--secondary-background-color, rgba(255, 255, 255, 0.04));
+      border: 1px solid var(--divider-color, rgba(255, 255, 255, 0.08));
+      border-radius: 12px;
+      padding: 14px;
       margin-bottom: 24px;
+    }
+    .test-header {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .test-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary-text-color, #ffffff);
+    }
+    .test-desc {
+      font-size: 0.76rem;
+      color: var(--secondary-text-color, #8a919e);
+    }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+    }
+    .test-btn {
+      background: var(--card-background-color, rgba(255, 255, 255, 0.05));
+      border: 1px solid var(--divider-color, rgba(255, 255, 255, 0.1));
+      color: var(--primary-text-color, #f1f3f7);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+    .test-btn:hover {
+      border-color: #00b0ff;
+      background: rgba(0, 176, 255, 0.08);
+    }
+    .test-btn.active {
+      border-color: #00b0ff;
+      background: rgba(0, 176, 255, 0.22);
+      color: #00b0ff;
+      font-weight: 700;
+      box-shadow: 0 0 8px rgba(0, 176, 255, 0.25);
     }
   `;
 }
@@ -192,7 +300,7 @@ class MinimalWasherCard extends LitElement {
   }
 
   setConfig(config) {
-    if (!config.cycle_entity || !config.time_entity) {
+    if (!config.test_mode && (!config.cycle_entity || !config.time_entity)) {
       throw new Error("Specificare sia cycle_entity che time_entity.");
     }
     this._config = config;
@@ -201,9 +309,8 @@ class MinimalWasherCard extends LitElement {
   render() {
     if (!this.hass || !this._config) return html``;
 
-    const rawCycle = this.hass.states[this._config.cycle_entity]?.state ?? "idle";
-    const cycleLabel = this._getCycleLabel(rawCycle);
-    const rawTime = this.hass.states[this._config.time_entity]?.state ?? "--:--";
+    let rawCycle = this._config.cycle_entity ? (this.hass.states[this._config.cycle_entity]?.state ?? "idle") : "idle";
+    let rawTime = this._config.time_entity ? (this.hass.states[this._config.time_entity]?.state ?? "--:--") : "--:--";
 
     let progress = 0;
     if (this._config.progress_entity) {
@@ -223,6 +330,48 @@ class MinimalWasherCard extends LitElement {
       isSmartOn = sState === "on" || sState === "true";
     }
 
+    // Modalità Test / Anteprima Rapida
+    if (this._config.test_mode) {
+      const tm = this._config.test_mode;
+      isPowerOn = true;
+      if (tm === "wash") {
+        rawCycle = "wash";
+        rawTime = "01:01";
+        progress = 45;
+      } else if (tm === "rinse") {
+        rawCycle = "rinse";
+        rawTime = "00:38";
+        progress = 70;
+      } else if (tm === "spin") {
+        rawCycle = "spin";
+        rawTime = "14:00";
+        progress = 90;
+      } else if (tm === "drying") {
+        rawCycle = "drying";
+        rawTime = "02:00";
+        progress = 55;
+        isSmartOn = true;
+      } else if (tm === "finish") {
+        rawCycle = "finish";
+        rawTime = "00:00";
+        progress = 100;
+      } else if (tm === "delay") {
+        rawCycle = "delay";
+        rawTime = "03:30";
+        progress = 0;
+      } else if (tm === "clean") {
+        rawCycle = "drumclean";
+        rawTime = "01:15";
+        progress = 50;
+      } else if (tm === "sensing") {
+        rawCycle = "sensing";
+        rawTime = "--:--";
+        progress = 0;
+      }
+    }
+
+    const cycleLabel = this._getCycleLabel(rawCycle);
+
     let ledClass = "knob-led led-red";
     if (isPowerOn) {
       ledClass = isSmartOn ? "knob-led led-blue" : "knob-led led-green";
@@ -237,6 +386,18 @@ class MinimalWasherCard extends LitElement {
     const isDrying = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("drying") || cycleLower.includes("asciugatura") || (cycleLower.includes("dry") && !cycleLower.includes("laundry")));
     const isSpinning = !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("spin") || cycleLower.includes("centrifuga"));
     const isFinished = isPowerOn && !isDelayWash && !isDrumCleaning && !isSensing && (cycleLower.includes("finish") || cycleLower.includes("complet") || cycleLower.includes("end"));
+
+    // Colore dinamico anello di avanzamento basato sulla fase attiva
+    let progressColor = "#00b0ff";
+    if (isFinished) {
+      progressColor = "#4ade80";
+    } else if (isDrying) {
+      progressColor = "#ff9800";
+    } else if (isRinsing) {
+      progressColor = "#00e5ff";
+    } else if (isDrumCleaning) {
+      progressColor = "#2dd4bf";
+    }
 
     let delayFormatted = null;
     if (this._config.delay_entity) {
@@ -267,6 +428,7 @@ class MinimalWasherCard extends LitElement {
               <svg class="knob-progress-ring" viewBox="0 0 52 52">
                 <circle class="knob-progress-bg" cx="26" cy="26" r="23" />
                 <circle class="knob-progress-arc" cx="26" cy="26" r="23"
+                  style="stroke: ${progressColor};"
                   stroke-dasharray="${144.51}"
                   stroke-dashoffset="${144.51 - (144.51 * progress / 100)}" />
               </svg>
@@ -643,7 +805,7 @@ class MinimalWasherCard extends LitElement {
       stroke: #00b0ff;
       stroke-width: 2.5;
       stroke-linecap: round;
-      transition: stroke-dashoffset 0.6s ease;
+      transition: stroke-dashoffset 0.6s ease, stroke 0.4s ease;
     }
 
     .knob-body {
