@@ -12,17 +12,17 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
 
 ### 📸 Tutte le Fasi del Ciclo
 
-| 🌊 Lavaggio | 🌧️ Risciacquo | 🌪️ Centrifuga |
+| 🔍 Rilevamento Carico | ⚖️ Rilevamento Peso | 🌊 Lavaggio |
 | :---: | :---: | :---: |
-| <img src="docs/images/wash.png" alt="Lavaggio" width="220" /> | <img src="docs/images/rinse.png" alt="Risciacquo" width="220" /> | <img src="docs/images/spin.png" alt="Centrifuga" width="220" /> |
+| <img src="docs/images/sensing.png" alt="Rilevamento Carico" width="220" /> | <img src="docs/images/weight.png" alt="Rilevamento Peso" width="220" /> | <img src="docs/images/wash.png" alt="Lavaggio" width="220" /> |
 
-| ♨️ Asciugatura | 👕 Completato | 🕒 Programmato |
+| 🌧️ Risciacquo | 🌪️ Centrifuga | ♨️ Asciugatura |
 | :---: | :---: | :---: |
-| <img src="docs/images/dry.png" alt="Asciugatura" width="220" /> | <img src="docs/images/complete.png" alt="Completato" width="220" /> | <img src="docs/images/delay.png" alt="Programmato" width="220" /> |
+| <img src="docs/images/rinse.png" alt="Risciacquo" width="220" /> | <img src="docs/images/spin.png" alt="Centrifuga" width="220" /> | <img src="docs/images/dry.png" alt="Asciugatura" width="220" /> |
 
-| ✨ Pulizia Cestello | 🔍 Rilevamento Carico | ⚖️ Rilevamento Peso |
+| 👕 Completato | 🕒 Programmato | ✨ Pulizia Cestello |
 | :---: | :---: | :---: |
-| <img src="docs/images/drumclean.png" alt="Pulizia Cestello" width="220" /> | <img src="docs/images/sensing.png" alt="Rilevamento Carico" width="220" /> | <img src="docs/images/weight.png" alt="Rilevamento Peso" width="220" /> |
+| <img src="docs/images/complete.png" alt="Completato" width="220" /> | <img src="docs/images/delay.png" alt="Programmato" width="220" /> | <img src="docs/images/drumclean.png" alt="Pulizia Cestello" width="220" /> |
 
 </div>
 
