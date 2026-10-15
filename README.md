@@ -57,8 +57,6 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
   - 🔴 **LED Rosso**: Elettrodomestico spento o in standby (`power_entity` = off).
   - 🟢 **LED Verde**: Elettrodomestico acceso in funzionamento standard (`power_entity` = on).
   - 🔵 **LED Blu**: Connessione / Smart Control Wi-Fi attivo (`smart_control_entity` = on).
-- ⭕ **Anello di Avanzamento Circolare**:
-  - Corona vettoriale nitida e aderente alla manopola che avanza in senso orario in base alla percentuale di completamento del ciclo (`progress_entity`).
 - 🛠️ **Configuratore Visuale Integrato**:
   - Mappatura completa delle entità tramite editor UI standard (`ha-form`), senza necessità di modificare file YAML.
 
@@ -142,8 +140,8 @@ La card traduce e mappa automaticamente i seguenti stati:
 | :--- | :--- | :--- |
 | `idle` / `off` / `standby` | **Off** | *Nessuna* |
 | `delaywash` / `delay_wash` / `delay` | **Programmato** | 🕒 Timer Vettoriale Orbitante con Countdown |
-| `laundrysensing` | **Rilevamento carico** | ⚖️ Scansione Carico & Oscillazione Cestello |
-| `weight_sensing` / `weightsensing` | **Rilevamento peso** | ⚖️ Scansione Carico & Oscillazione Cestello |
+| `laundrysensing` | **Rilevamento carico** | 🔍 Lente con Mirino a Croce, Fascio Radar Rotante & Nodi di Carico |
+| `weight_sensing` / `weightsensing` | **Rilevamento peso** | ⚖️ Peso Tecnico "KG" Calibrato con Molleggio & Compressione Dinamica |
 | `wash` / `washing` | **Lavaggio** | 🌊 Onde d'Acqua Fluide (Livello 52%) |
 | `rinse` / `rinsing` | **Risciacquo** | 🌧️ Cascata di Pioggia a 4 Colonne & Onde Turchesi Limpide |
 | `spin` / `spinning` | **Centrifuga** | 🌪️ Anelli Rotanti Alta Velocità |
