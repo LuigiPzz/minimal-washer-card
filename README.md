@@ -8,11 +8,23 @@ Una custom card per **Home Assistant (Lovelace)** dal design ultra-minimale ed e
 
 Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutte le fasi del ciclo (lavaggio, risciacquo, centrifuga, asciugatura, ciclo completato, avvio ritardato), palette monocromatica senza dominanti bluastre e supporto nativo per le Sezioni (Grid View) di Home Assistant.
 
-<p align="center">
-  <img src="docs/images/wash.png" alt="Lavaggio" width="250" />
-  <img src="docs/images/spin.png" alt="Centrifuga" width="250" />
-  <img src="docs/images/dry.png" alt="Asciugatura" width="250" />
-</p>
+<div align="center">
+
+### 📸 Tutte le Fasi del Ciclo
+
+| 🌊 Lavaggio | 🌧️ Risciacquo | 🌪️ Centrifuga |
+| :---: | :---: | :---: |
+| <img src="docs/images/wash.png" alt="Lavaggio" width="220" /> | <img src="docs/images/rinse.png" alt="Risciacquo" width="220" /> | <img src="docs/images/spin.png" alt="Centrifuga" width="220" /> |
+
+| ♨️ Asciugatura | 👕 Completato | 🕒 Programmato |
+| :---: | :---: | :---: |
+| <img src="docs/images/dry.png" alt="Asciugatura" width="220" /> | <img src="docs/images/complete.png" alt="Completato" width="220" /> | <img src="docs/images/delay.png" alt="Programmato" width="220" /> |
+
+| ✨ Pulizia Cestello | 🔍 Rilevamento Carico | ⚖️ Rilevamento Peso |
+| :---: | :---: | :---: |
+| <img src="docs/images/drumclean.png" alt="Pulizia Cestello" width="220" /> | <img src="docs/images/sensing.png" alt="Rilevamento Carico" width="220" /> | <img src="docs/images/weight.png" alt="Rilevamento Peso" width="220" /> |
+
+</div>
 
 ---
 
