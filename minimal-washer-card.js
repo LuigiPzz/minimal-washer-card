@@ -224,8 +224,8 @@ class MinimalWasherCard extends LitElement {
       columns: 6,
       min_columns: 6,
       max_columns: 12,
-      rows: "auto",
-      min_rows: 2
+      rows: 5,
+      min_rows: 5
     };
   }
 
@@ -234,8 +234,8 @@ class MinimalWasherCard extends LitElement {
       columns: 6,
       min_columns: 6,
       max_columns: 12,
-      rows: "auto",
-      min_rows: 2
+      rows: 5,
+      min_rows: 5
     };
   }
 
@@ -633,15 +633,16 @@ class MinimalWasherCard extends LitElement {
       justify-content: center;
       box-sizing: border-box;
       width: 100%;
+      height: 100%;
     }
 
     .washer-card {
       container-type: inline-size;
       border-radius: var(--ha-card-border-radius, 12px);
-      padding: 16px 14px;
+      padding: 8px 10px 10px 10px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 8px;
       box-sizing: border-box;
       user-select: none;
       position: relative;
@@ -651,7 +652,9 @@ class MinimalWasherCard extends LitElement {
       transition: background 0.3s ease, border-color 0.3s ease;
       width: 100%;
       max-width: 320px;
+      height: 100%;
       margin: 0 auto;
+      justify-content: space-between;
     }
 
     .theme-dark {
@@ -700,17 +703,18 @@ class MinimalWasherCard extends LitElement {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       position: relative;
       z-index: 5;
       width: 100%;
+      flex-shrink: 0;
     }
 
     .display-panel {
       background: var(--mwc-display-bg);
       border: 1px solid var(--mwc-display-border);
-      border-radius: 14px;
-      padding: 8px 12px;
+      border-radius: 12px;
+      padding: 6px 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -734,15 +738,15 @@ class MinimalWasherCard extends LitElement {
 
     @container (max-width: 290px) {
       .washer-card {
-        padding: 12px 10px;
-        gap: 10px;
-      }
-      .dashboard-top {
+        padding: 6px 8px 8px 8px;
         gap: 6px;
       }
+      .dashboard-top {
+        gap: 4px;
+      }
       .display-panel {
-        padding: 5px 8px;
-        border-radius: 10px;
+        padding: 4px 6px;
+        border-radius: 9px;
       }
       .display-label {
         font-size: 0.54rem;
@@ -764,9 +768,9 @@ class MinimalWasherCard extends LitElement {
         top: 3px;
       }
       .drum-outer-frame {
-        width: 96%;
-        height: 96%;
-        border-width: 6px;
+        width: 88%;
+        height: 88%;
+        border-width: 5px;
       }
     }
 
@@ -912,25 +916,26 @@ class MinimalWasherCard extends LitElement {
     .drum-area {
       position: relative;
       width: 100%;
-      aspect-ratio: 1 / 1;
+      flex: 1 1 auto;
+      min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .drum-outer-frame {
-      position: absolute;
-      width: 94%;
-      height: 94%;
+      width: min(88%, 210px);
+      aspect-ratio: 1 / 1;
       border-radius: 50%;
       background: var(--mwc-drum-frame-bg);
-      border: 8px solid var(--mwc-drum-frame-border);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35), inset 0 2px 10px rgba(0,0,0,0.5);
+      border: 6px solid var(--mwc-drum-frame-border);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35), inset 0 2px 8px rgba(0,0,0,0.5);
       box-sizing: border-box;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
     }
 
     .drum-glass {

@@ -35,8 +35,8 @@ Include un configuratore visuale (GUI), animazioni realistiche e fluide per tutt
   - **Tema Chiaro**: Grigio satinato raffinato in alluminio/metallo chiaro (addio al bianco piatto).
   - Passaggio automatico tra tema chiaro e tema scuro basato sulle impostazioni di Home Assistant.
 - 📐 **Supporto Nativo Sezioni Lovelace (Grid View)**:
-  - Blocco intelligente della larghezza minima a **6 colonne** (50% di larghezza sezione) con altezza automatica.
-  - Layout adattivo con **Container Queries** per scaling fluido su qualsiasi display o smartphone.
+  - Larghezza predefinita a **6 colonne** e altezza calibrata a **5 righe standard** per un allineamento perfetto con card native e Mushroom.
+  - Layout adattivo compatto senza margini vuoti in eccesso e con scaling fluido via **Container Queries**.
 - 🌊 **Animazioni Dinamiche nell'Oblò (Drum)**:
   - 🌊 **Lavaggio**: Onde d'acqua fluide a doppia frequenza con livello al 52%.
   - 🌧️ **Risciacquo**: Cascata di gocce a pioggia asincrona su 4 colonne e onde turchesi limpide (#079392) sul fondo.
