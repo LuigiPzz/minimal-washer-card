@@ -913,20 +913,17 @@ class MinimalWasherCard extends LitElement {
     .drum-area {
       position: relative;
       width: 100%;
-      flex: 1 1 auto;
-      min-height: 0;
+      aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px 0;
-      box-sizing: border-box;
+      margin: auto 0;
     }
 
     .drum-outer-frame {
-      height: 100%;
-      max-height: 240px;
-      max-width: 90%;
-      aspect-ratio: 1 / 1;
+      position: absolute;
+      width: 88%;
+      height: 88%;
       border-radius: 50%;
       background: var(--mwc-drum-frame-bg);
       border: 6px solid var(--mwc-drum-frame-border);
@@ -936,7 +933,6 @@ class MinimalWasherCard extends LitElement {
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      position: relative;
     }
 
     .drum-glass {
