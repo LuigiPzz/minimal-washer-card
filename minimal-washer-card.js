@@ -651,9 +651,8 @@ class MinimalWasherCard extends LitElement {
       box-shadow: var(--mwc-card-shadow);
       transition: background 0.3s ease, border-color 0.3s ease;
       width: 100%;
-      max-width: 320px;
       height: 100%;
-      margin: 0 auto;
+      margin: 0;
       justify-content: space-between;
     }
 
@@ -768,8 +767,6 @@ class MinimalWasherCard extends LitElement {
         top: 3px;
       }
       .drum-outer-frame {
-        width: 88%;
-        height: 88%;
         border-width: 5px;
       }
     }
@@ -921,10 +918,14 @@ class MinimalWasherCard extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 4px 0;
+      box-sizing: border-box;
     }
 
     .drum-outer-frame {
-      width: min(88%, 210px);
+      height: 100%;
+      max-height: 240px;
+      max-width: 90%;
       aspect-ratio: 1 / 1;
       border-radius: 50%;
       background: var(--mwc-drum-frame-bg);
