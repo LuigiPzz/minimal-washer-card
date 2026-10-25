@@ -639,10 +639,10 @@ class MinimalWasherCard extends LitElement {
     .washer-card {
       container-type: inline-size;
       border-radius: var(--ha-card-border-radius, 12px);
-      padding: 8px 10px 10px 10px;
+      padding: 6px 10px 4px 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
       box-sizing: border-box;
       user-select: none;
       position: relative;
@@ -653,7 +653,7 @@ class MinimalWasherCard extends LitElement {
       width: 100%;
       height: 100%;
       margin: 0;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
 
     .theme-dark {
@@ -917,7 +917,7 @@ class MinimalWasherCard extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: auto 0;
+      margin: 0;
     }
 
     .drum-outer-frame {
